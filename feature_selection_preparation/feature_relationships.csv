@@ -1,0 +1,7 @@
+Feature 1,Feature 2,Correlation,Multicollinearity,Duplicate Information,Interaction Strength,Dependency
+Num_Agents_Involved,Query_Complexity_Score,0.8449595234689832,High,No,Strong,Correlated
+Num_Agents_Involved,Processing_Time_Sec,0.8966805455046611,High,No,Strong,Correlated
+Query_Complexity_Score,Input_Tokens,0.8254792026517709,High,No,Strong,Correlated
+Query_Complexity_Score,Processing_Time_Sec,0.8446776129580887,High,No,Strong,Correlated
+KPI_Current_Value,KPI_Target_Value,0.9920044415817016,High,Yes,Strong,Correlated
+Revenue_Impact_USD,Total_Margin_USD,0.9722098513932265,High,Yes,Strong,Correlated

@@ -1,0 +1,4 @@
+Feature Name,Overall Feature Score,Business Score,ML Score,Statistical Score,Risk Score,Leakage Risk,Recommendation
+Anomaly_Score,8,7,1,8,10,REMOVE,REMOVE CANDIDATE
+Agent_Accuracy_Feedback,3,5,2,3,1,SAFE,REMOVE CANDIDATE
+Employee_ID_Handler,3,5,2,3,1,SAFE,REMOVE CANDIDATE

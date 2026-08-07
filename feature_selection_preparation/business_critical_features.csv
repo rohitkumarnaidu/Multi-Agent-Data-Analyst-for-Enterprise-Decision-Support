@@ -1,0 +1,11 @@
+Feature Name,Overall Feature Score,Business Score,ML Score,Statistical Score,Risk Score,Leakage Risk,Recommendation
+Transaction_Amount_USD,7,8,7,7,1,SAFE,KEEP (Business Critical)
+Revenue_Impact_USD,7,8,7,7,1,SAFE,KEEP (Business Critical)
+Cost_Savings_Potential_USD,7,8,7,7,1,SAFE,KEEP (Business Critical)
+Anomaly_Detected,7,5,9,7,1,TARGET,KEEP (Business Critical)
+Transaction_Amount_USD_Is_Outlier,7,8,7,7,1,SAFE,KEEP (Business Critical)
+Total_Margin_USD,7,8,7,7,1,SAFE,KEEP (Business Critical)
+Rolling_7_Txn_Avg_Amount_By_Dept,7,8,7,7,1,SAFE,KEEP (Business Critical)
+Prev_Txn_Amount_By_Dept,7,8,7,7,1,SAFE,KEEP (Business Critical)
+PoP_Amount_Change_Pct,7,8,7,7,1,SAFE,KEEP (Business Critical)
+Rank_Amount_Within_Dept,7,8,7,7,1,SAFE,KEEP (Business Critical)
