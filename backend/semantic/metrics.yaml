@@ -1,0 +1,183 @@
+# ==============================================================
+# Governed Semantic Metric Layer -- Multi-Agent Data Analyst
+# ==============================================================
+# Per 04-ENTERPRISE-AUDIT Section 2.3:
+#   "Governed YAML metric layer covering ~80% of expected queries"
+#
+# Used by:
+#   - Data Agent: to draft accurate SQL queries
+#   - Analysis Agent: to compute metrics deterministically
+#   - Narrative Agent: to describe results in business terms
+# ═══════════════════════════════════════════════════════════════
+
+metrics:
+  # ── AI Efficiency Domain ──
+  - name: token_efficiency
+    display_name: "Token Efficiency"
+    description: "Output tokens generated per second of processing time"
+    sql_template: "SELECT AVG(Token_Efficiency) AS avg_token_efficiency FROM enterprise_data"
+    dimensions: [Department, Assigned_Agent, Business_Unit, Region]
+    unit: "tokens/sec"
+    domain: "AI Efficiency"
+    higher_is_better: true
+
+  - name: avg_processing_time
+    display_name: "Average Processing Time"
+    description: "Mean time in seconds to process a query"
+    sql_template: "SELECT AVG(Processing_Time_Sec) AS avg_processing_time FROM enterprise_data"
+    dimensions: [Department, Assigned_Agent, Query_Type, Priority_Level]
+    unit: "seconds"
+    domain: "AI Efficiency"
+    higher_is_better: false
+
+  - name: cost_per_token
+    display_name: "Cost Per Token"
+    description: "Average transaction cost per token (input + output)"
+    sql_template: "SELECT AVG(Cost_Per_Token) AS avg_cost_per_token FROM enterprise_data"
+    dimensions: [Department, Assigned_Agent, Business_Unit]
+    unit: "USD/token"
+    domain: "AI Efficiency"
+    higher_is_better: false
+
+  # ── Governance Domain ──
+  - name: sla_breach_rate
+    display_name: "SLA Breach Rate"
+    description: "Percentage of queries that breach the Service Level Agreement"
+    sql_template: "SELECT AVG(CAST(SLA_Breached AS INT)) * 100 AS sla_breach_rate FROM enterprise_data"
+    dimensions: [Department, Assigned_Agent, Quarter, Month, Priority_Level]
+    unit: "%"
+    domain: "Governance"
+    higher_is_better: false
+
+  - name: human_review_rate
+    display_name: "Human Review Rate"
+    description: "Percentage of queries requiring human review"
+    sql_template: "SELECT AVG(CAST(Requires_Human_Review AS INT)) * 100 AS human_review_rate FROM enterprise_data"
+    dimensions: [Department, Assigned_Agent, Risk_Level, Escalation_Level]
+    unit: "%"
+    domain: "Governance"
+    higher_is_better: false
+
+  - name: escalation_rate
+    display_name: "Escalation Rate"
+    description: "Distribution of escalation levels across queries"
+    sql_template: "SELECT Escalation_Level, COUNT(*) AS count FROM enterprise_data GROUP BY Escalation_Level ORDER BY count DESC"
+    dimensions: [Department, Assigned_Agent, Priority_Level]
+    unit: "count"
+    domain: "Governance"
+    higher_is_better: false
+
+  # ── Business Impact Domain ──
+  - name: total_cost_savings
+    display_name: "Total Cost Savings"
+    description: "Sum of cost savings potential from auto-resolved queries"
+    sql_template: "SELECT SUM(Cost_Savings_Potential_USD) AS total_savings FROM enterprise_data WHERE Decision_Outcome = 'Auto-Resolved'"
+    dimensions: [Department, Assigned_Agent, Quarter, Business_Unit]
+    unit: "USD"
+    domain: "Business Impact"
+    higher_is_better: true
+
+  - name: revenue_impact
+    display_name: "Revenue Impact"
+    description: "Total revenue impact (positive or negative) from AI decisions"
+    sql_template: "SELECT SUM(Revenue_Impact_USD) AS total_revenue_impact FROM enterprise_data"
+    dimensions: [Department, Assigned_Agent, Decision_Outcome, Quarter]
+    unit: "USD"
+    domain: "Business Impact"
+    higher_is_better: true
+
+  - name: automation_rate
+    display_name: "Automation Rate"
+    description: "Percentage of queries resolved without human intervention"
+    sql_template: "SELECT AVG(CASE WHEN Decision_Outcome = 'Auto-Resolved' THEN 1 ELSE 0 END) * 100 AS automation_rate FROM enterprise_data"
+    dimensions: [Department, Assigned_Agent, Quarter]
+    unit: "%"
+    domain: "Business Impact"
+    higher_is_better: true
+
+  # ── Risk Domain ──
+  - name: anomaly_rate
+    display_name: "Anomaly Detection Rate"
+    description: "Percentage of queries where an anomaly was detected"
+    sql_template: "SELECT AVG(CAST(Anomaly_Detected AS INT)) * 100 AS anomaly_rate FROM enterprise_data"
+    dimensions: [Department, Assigned_Agent, Risk_Level, Quarter]
+    unit: "%"
+    domain: "Risk"
+    higher_is_better: false
+
+  - name: false_confidence_rate
+    display_name: "False Confidence Rate"
+    description: "Rate of high-confidence predictions that were actually anomalous or SLA-breached"
+    sql_template: "SELECT AVG(CAST(False_Confidence_Flag AS INT)) * 100 AS false_confidence_rate FROM enterprise_data"
+    dimensions: [Department, Assigned_Agent, Confidence_Score]
+    unit: "%"
+    domain: "Risk"
+    higher_is_better: false
+
+  - name: avg_confidence_score
+    display_name: "Average Confidence Score"
+    description: "Mean confidence score across all agent predictions"
+    sql_template: "SELECT AVG(Confidence_Score) AS avg_confidence FROM enterprise_data"
+    dimensions: [Department, Assigned_Agent, Query_Type, Decision_Outcome]
+    unit: "0-1 score"
+    domain: "Risk"
+    higher_is_better: true
+
+# ── Dimension Value Maps (for query generation) ──
+dimension_values:
+  Department:
+    - Finance
+    - IT Operations
+    - Marketing
+    - Supply Chain
+    - Sales
+    - HR
+    - Customer Service
+
+  Assigned_Agent:
+    - Finance_Agent
+    - ITOps_Agent
+    - Marketing_Agent
+    - SupplyChain_Agent
+    - Sales_Agent
+    - HR_Agent
+    - CustomerService_Agent
+
+  Business_Unit:
+    - North America
+    - EMEA
+    - APAC
+    - LATAM
+
+  Region:
+    - North America
+    - Europe
+    - Asia Pacific
+    - Latin America
+    - Middle East & Africa
+
+  Priority_Level:
+    - Urgent
+    - High
+    - Medium
+    - Low
+
+  Risk_Level:
+    - High
+    - Medium
+    - Low
+
+  Decision_Outcome:
+    - Auto-Resolved
+    - Approved
+    - Pending
+    - Rejected
+
+  Query_Type:
+    - Forecasting
+    - Compliance Check
+    - Anomaly Detection
+    - Revenue Analysis
+    - Root Cause Analysis
+    - Trend Analysis
+    - Resource Optimization
