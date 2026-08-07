@@ -14,17 +14,23 @@ output_dir = 'phase4/statistical_feature_selection'
 os.makedirs(output_dir, exist_ok=True)
 
 print('Loading datasets...')
-train_df = pd.read_csv('data/train.csv')
-val_df = pd.read_csv('data/validation.csv')
-# We'll also load feature_scorecard from the previous step if it exists
+# Use master_cleaned_dataset for 1-to-1 mapping with feature_scorecard
+df = pd.read_parquet('data/master_cleaned_dataset.parquet')
+
+# Simulate train/val split for PSI (80/20)
+train_df = df.sample(frac=0.8, random_state=42)
+val_df = df.drop(train_df.index)
+
 scorecard_path = 'feature_selection_preparation/feature_scorecard.csv'
 if os.path.exists(scorecard_path):
     scorecard_df = pd.read_csv(scorecard_path)
     scorecard_map = scorecard_df.set_index('Feature Name')['Business Score'].to_dict()
+    ml_score_map = scorecard_df.set_index('Feature Name')['ML Score'].to_dict()
 else:
     scorecard_map = {}
+    ml_score_map = {}
 
-features = [c for c in train_df.columns if c != target_col and c != 'Record_ID']
+features = [c for c in train_df.columns if c != target_col and c != 'Record_ID' and 'Timestamp' not in c and 'Date' not in c]
 num_features = len(features)
 
 # Identify numeric and categorical features
@@ -37,19 +43,17 @@ print('1. Computing Variance & Near Zero Variance...')
 var_data = []
 for col in numeric_cols:
     v = train_df[col].var()
-    nzv = 'Yes' if v < 0.01 else 'No' # Threshold for near zero
+    nzv = 'Yes' if v < 0.01 else 'No'
     var_data.append({'Feature': col, 'Variance': v, 'Near Zero Variance': nzv})
 pd.DataFrame(var_data).to_csv(os.path.join(output_dir, 'variance_report.csv'), index=False)
 
 print('2-5. Computing Correlations (Pearson, Spearman, Kendall)...')
-# We take a sample for Spearman and Kendall to save time if dataset is huge
 sample_size = min(10000, len(train_df))
 train_sample = train_df.sample(n=sample_size, random_state=42)
 
 corr_data = []
 for col in numeric_cols:
     if not is_target_categorical or train_df[target_col].dtype in ['int64', 'float64', 'bool']:
-        # If target is numeric or bool, we can compute correlation
         p_corr = train_df[col].corr(train_df[target_col], method='pearson')
         s_corr = train_sample[col].corr(train_sample[target_col].astype(float), method='spearman')
         k_corr = train_sample[col].corr(train_sample[target_col].astype(float), method='kendall')
@@ -59,29 +63,20 @@ for col in numeric_cols:
     corr_data.append({'Feature': col, 'Pearson': p_corr, 'Spearman': s_corr, 'Kendall': k_corr})
 pd.DataFrame(corr_data).to_csv(os.path.join(output_dir, 'correlation_report.csv'), index=False)
 
-
 print('6. Computing Mutual Information, Entropy & Info Gain...')
-# MI can be slow, use sample
 mi_data = []
 ent_data = []
-
-# For MI target must be properly encoded
 y_sample = train_sample[target_col].astype(str) if is_target_categorical else train_sample[target_col]
 
 for col in features:
-    # Entropy
     value_counts = train_df[col].value_counts(normalize=True, dropna=False)
     ent = entropy(value_counts)
-    
-    # Missing %
     missing_pct = train_df[col].isnull().mean() * 100
     unique_ratio = train_df[col].nunique() / len(train_df)
     
-    # MI (Info Gain proxy)
     if col in numeric_cols:
         x_sample = train_sample[[col]].fillna(train_sample[col].median())
     else:
-        # fillna and encode
         x_sample = train_sample[[col]].fillna('MISSING').astype(str)
         from sklearn.preprocessing import OrdinalEncoder
         x_sample = OrdinalEncoder().fit_transform(x_sample)
@@ -91,12 +86,11 @@ for col in features:
     else:
         mi = mutual_info_regression(x_sample, y_sample, random_state=42)[0]
         
-    mi_data.append({'Feature': col, 'Mutual Information': mi, 'Information Gain': mi}) # In this context they are equivalent
+    mi_data.append({'Feature': col, 'Mutual Information': mi, 'Information Gain': mi})
     ent_data.append({'Feature': col, 'Entropy': ent, 'Missing %': missing_pct, 'Unique Ratio': unique_ratio})
 
 pd.DataFrame(mi_data).to_csv(os.path.join(output_dir, 'mutual_information.csv'), index=False)
 pd.DataFrame(ent_data).to_csv(os.path.join(output_dir, 'entropy_report.csv'), index=False)
-
 
 print('7. Computing Chi-Square (Categorical vs Target)...')
 chi_data = []
@@ -108,23 +102,20 @@ if is_target_categorical:
             chi_data.append({'Feature': col, 'Chi-Square': chi2, 'p-value': p})
 pd.DataFrame(chi_data).to_csv(os.path.join(output_dir, 'chi_square.csv'), index=False)
 
-
 print('8. Computing ANOVA F-Test (Numeric vs Target)...')
 anova_data = []
 if is_target_categorical:
     groups = train_df[target_col].unique()
     for col in numeric_cols:
         group_data = [train_df[train_df[target_col] == g][col].dropna() for g in groups]
-        # Only run if we have at least 2 groups with variance
         if len(group_data) > 1 and all(len(g) > 1 for g in group_data):
             f_stat, p = f_oneway(*group_data)
             anova_data.append({'Feature': col, 'F-Statistic': f_stat, 'p-value': p})
 pd.DataFrame(anova_data).to_csv(os.path.join(output_dir, 'anova.csv'), index=False)
 
-
 print('9. Computing VIF (Multicollinearity)...')
-# VIF only makes sense for numeric predictors, and we drop na
-vif_sample = train_sample[numeric_cols].dropna()
+# We take a sample and select only numeric columns without NaNs
+vif_sample = train_sample[numeric_cols].fillna(train_sample[numeric_cols].median())
 vif_data = []
 if len(vif_sample) > 0 and len(numeric_cols) > 1:
     for i, col in enumerate(numeric_cols):
@@ -135,27 +126,18 @@ if len(vif_sample) > 0 and len(numeric_cols) > 1:
         vif_data.append({'Feature': col, 'VIF': vif})
 pd.DataFrame(vif_data).to_csv(os.path.join(output_dir, 'vif_report.csv'), index=False)
 
-
 print('10. Computing PSI (Feature Stability)...')
 def calculate_psi(expected, actual, buckets=10):
-    def scale_range (input, min, max):
-        input += -(np.min(input))
-        input /= np.max(input) / (max - min)
-        input += min
-        return input
-    
-    if len(expected.unique()) <= buckets:
-        # Categorical or low cardinality numeric
+    if len(expected.unique()) <= buckets or expected.dtype == 'object' or expected.dtype == 'bool':
         expected_percents = expected.value_counts(normalize=True)
         actual_percents = actual.value_counts(normalize=True)
         expected_percents, actual_percents = expected_percents.align(actual_percents, fill_value=0.0001)
     else:
         # Numeric
-        breakpoints = np.arange(0, buckets + 1) / (buckets) * 100
-        breakpoints = scale_range(breakpoints, np.min(expected), np.max(expected))
+        e_min, e_max = expected.min(), expected.max()
+        breakpoints = np.linspace(e_min, e_max, buckets + 1)
         expected_percents = np.histogram(expected, breakpoints)[0] / len(expected)
         actual_percents = np.histogram(actual, breakpoints)[0] / len(actual)
-        
         expected_percents = np.where(expected_percents == 0, 0.0001, expected_percents)
         actual_percents = np.where(actual_percents == 0, 0.0001, actual_percents)
         
@@ -175,51 +157,45 @@ for col in features:
         psi = np.nan
     psi_data.append({'Feature': col, 'PSI': psi})
 
-
 print('11. Aggregating Feature Statistics and Rankings...')
-# Merge all data
 stats_df = pd.DataFrame({'Feature Name': features})
-stats_df = stats_df.merge(pd.DataFrame(var_data).rename(columns={'Feature': 'Feature Name'}), on='Feature Name', how='left')
-stats_df = stats_df.merge(pd.DataFrame(corr_data).rename(columns={'Feature': 'Feature Name'}), on='Feature Name', how='left')
-stats_df = stats_df.merge(pd.DataFrame(mi_data).rename(columns={'Feature': 'Feature Name'}), on='Feature Name', how='left')
-stats_df = stats_df.merge(pd.DataFrame(chi_data).rename(columns={'Feature': 'Feature Name'}), on='Feature Name', how='left') if len(chi_data) > 0 else stats_df
-stats_df = stats_df.merge(pd.DataFrame(anova_data).rename(columns={'Feature': 'Feature Name'}), on='Feature Name', how='left') if len(anova_data) > 0 else stats_df
-stats_df = stats_df.merge(pd.DataFrame(vif_data).rename(columns={'Feature': 'Feature Name'}), on='Feature Name', how='left') if len(vif_data) > 0 else stats_df
-stats_df = stats_df.merge(pd.DataFrame(ent_data).rename(columns={'Feature': 'Feature Name'}), on='Feature Name', how='left')
-stats_df = stats_df.merge(pd.DataFrame(psi_data).rename(columns={'Feature': 'Feature Name'}), on='Feature Name', how='left')
+stats_df = stats_df.merge(pd.DataFrame(var_data).rename(columns={'Feature': 'Feature Name'}), on='Feature Name', how='left') if len(var_data)>0 else stats_df
+stats_df = stats_df.merge(pd.DataFrame(corr_data).rename(columns={'Feature': 'Feature Name'}), on='Feature Name', how='left') if len(corr_data)>0 else stats_df
+stats_df = stats_df.merge(pd.DataFrame(mi_data).rename(columns={'Feature': 'Feature Name'}), on='Feature Name', how='left') if len(mi_data)>0 else stats_df
+stats_df = stats_df.merge(pd.DataFrame(chi_data).rename(columns={'Feature': 'Feature Name'}), on='Feature Name', how='left') if len(chi_data)>0 else stats_df
+stats_df = stats_df.merge(pd.DataFrame(anova_data).rename(columns={'Feature': 'Feature Name'}), on='Feature Name', how='left') if len(anova_data)>0 else stats_df
+stats_df = stats_df.merge(pd.DataFrame(vif_data).rename(columns={'Feature': 'Feature Name'}), on='Feature Name', how='left') if len(vif_data)>0 else stats_df
+stats_df = stats_df.merge(pd.DataFrame(ent_data).rename(columns={'Feature': 'Feature Name'}), on='Feature Name', how='left') if len(ent_data)>0 else stats_df
+stats_df = stats_df.merge(pd.DataFrame(psi_data).rename(columns={'Feature': 'Feature Name'}), on='Feature Name', how='left') if len(psi_data)>0 else stats_df
 
-# Generate Rankings
 rankings = []
 for idx, row in stats_df.iterrows():
     f = row['Feature Name']
-    # Base ML score proxy from correlations / MI
     mi_score = row.get('Mutual Information', 0)
     p_corr = abs(row.get('Pearson', 0)) if pd.notnull(row.get('Pearson')) else 0
     vif = row.get('VIF', 1.0)
     psi = row.get('PSI', 0.0)
     missing = row.get('Missing %', 0)
     
-    # ML Score heuristics
-    ml_score = 5
-    if mi_score > 0.05: ml_score += 2
-    if p_corr > 0.1: ml_score += 2
-    if vif > 10: ml_score -= 2
-    if missing > 50: ml_score -= 3
-    if psi > 0.2: ml_score -= 2 # Unstable
+    # Use previous ML score and adjust with rigorous stats
+    base_ml = ml_score_map.get(f, 5)
+    
+    ml_score = base_ml
+    if mi_score > 0.05: ml_score += 1
+    if p_corr > 0.1: ml_score += 1
+    if vif > 10: ml_score -= 3
+    if missing > 50: ml_score -= 2
+    if psi > 0.1: ml_score -= 2 # Unstable
+    if row.get('Near Zero Variance') == 'Yes': ml_score -= 4
     
     ml_score = max(1, min(10, ml_score))
+    bus_score = scorecard_map.get(f, 5)
+    overall = (ml_score * 0.7) + (bus_score * 0.3)
     
-    bus_score = scorecard_map.get(f, 5) # Fallback to 5
-    
-    # Overall Statistical Score = 60% ML + 40% Business
-    overall = (ml_score * 0.6) + (bus_score * 0.4)
-    
-    # Classify
     leakage_risk = 'SAFE'
     classification = 'KEEP'
     
     if p_corr > 0.95 or mi_score > 0.5:
-        leakage_risk = 'REVIEW (High Correl)'
         classification = 'REMOVE CANDIDATE'
     elif row.get('Near Zero Variance') == 'Yes':
         classification = 'LOW VALUE'
@@ -227,7 +203,7 @@ for idx, row in stats_df.iterrows():
         classification = 'REDUNDANT'
     elif missing > 90:
         classification = 'REMOVE CANDIDATE'
-    elif overall >= 7 and psi <= 0.1 and vif < 5:
+    elif overall >= 7.5 and psi <= 0.05 and vif < 5:
         classification = 'KEEP (High Confidence)'
     elif overall < 4:
         classification = 'REVIEW'
@@ -243,7 +219,6 @@ for idx, row in stats_df.iterrows():
         'Business Score': bus_score,
         'ML Score': ml_score,
         'Overall Statistical Score': round(overall, 2),
-        'Leakage Risk': leakage_risk,
         'Classification': classification
     })
 
@@ -257,7 +232,6 @@ rankings_df[rankings_df['Classification'] == 'REVIEW'].to_csv(os.path.join(outpu
 rankings_df[rankings_df['Classification'] == 'REDUNDANT'].to_csv(os.path.join(output_dir, 'redundant_features.csv'), index=False)
 rankings_df[rankings_df['Classification'] == 'REMOVE CANDIDATE'].to_csv(os.path.join(output_dir, 'remove_candidates.csv'), index=False)
 
-# README
 readme = f'''# Phase 4A - Statistical Feature Selection
 
 ## Overview
@@ -276,7 +250,6 @@ No features have been permanently removed. All features are categorized into KEE
 with open(os.path.join(output_dir, 'README.md'), 'w', encoding='utf-8') as f:
     f.write(readme)
 
-# Summary
 keep_cnt = len(rankings_df[rankings_df['Classification'].str.contains('KEEP')])
 rev_cnt = len(rankings_df[rankings_df['Classification'] == 'REVIEW'])
 red_cnt = len(rankings_df[rankings_df['Classification'] == 'REDUNDANT'])
@@ -295,7 +268,7 @@ summary = f'''# Phase 4A: Statistical Feature Selection Summary
 ## Methodological Notes
 - **Multicollinearity (VIF):** Computed across numeric predictors. Features with VIF > 10 are flagged as REDUNDANT.
 - **Leakage (Correlation/MI):** Very high correlation (>0.95) or Mutual Information (>0.5) against the target triggers a REMOVE CANDIDATE / REVIEW flag.
-- **Stability (PSI):** Population Stability Index was computed between `train.csv` and `validation.csv`. High PSI (>0.2) reduces the overall ML score.
+- **Stability (PSI):** Population Stability Index was computed between random train/val splits. High PSI reduces the overall ML score.
 - **Overall Score:** Weighted average of derived ML statistical strength and Business relevance.
 
 ## Next Steps
