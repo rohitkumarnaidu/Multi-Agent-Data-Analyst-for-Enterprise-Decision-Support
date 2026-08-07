@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feature &amp; Implementation Plan — Multi-Agent Data Analyst | DATASPHERE 26</title>
+<style>
+  :root{
+    --bg:#0B1220;
+    --surface:#101A2E;
+    --elevated:#16213B;
+    --border:#253253;
+    --text:#E7ECF5;
+    --muted:#8B96B3;
+    --amber:#F0A93B;
+    --teal:#34D1C4;
+    --green:#6FCF7B;
+    --coral:#E2635A;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Consolas, monospace;
+    --serif: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --radius: 10px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1100px 600px at 15% -10%, rgba(52,209,196,0.10), transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, rgba(240,169,59,0.08), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--teal);}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px 100px;}
+
+  /* ---------- HEADER / HERO ---------- */
+  header.hero{
+    border-bottom:1px solid var(--border);
+    padding:42px 0 30px;
+    margin-bottom:36px;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--amber);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 4px rgba(240,169,59,.15);}
+  h1{
+    font-family:var(--serif);
+    font-weight:700;
+    font-size:clamp(28px,4vw,44px);
+    letter-spacing:-0.01em;
+    margin:14px 0 10px;
+  }
+  .thesis{
+    font-size:18px;
+    color:var(--muted);
+    max-width:760px;
+    margin:0 0 22px;
+  }
+  .metabar{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .chip{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--text);
+    background:var(--surface);
+    border:1px solid var(--border);
+    padding:6px 12px;
+    border-radius:999px;
+  }
+  .chip b{color:var(--teal);font-weight:600;}
+
+  /* ---------- SIGNATURE: AGENT PIPELINE STRIP ---------- */
+  .pipeline{
+    margin:34px 0 8px;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:22px 22px 20px;
+    overflow-x:auto;
+  }
+  .pipeline-label{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:16px;
+  }
+  .pipe-row{display:flex;align-items:center;min-width:720px;}
+  .node{
+    flex:1;
+    text-align:center;
+    position:relative;
+    padding:0 6px;
+  }
+  .node .ring{
+    width:14px;height:14px;border-radius:50%;
+    background:var(--elevated);
+    border:2px solid var(--teal);
+    margin:0 auto 10px;
+    position:relative;
+  }
+  .node .ring::after{
+    content:"";
+    position:absolute;inset:-6px;
+    border-radius:50%;
+    border:1px solid rgba(52,209,196,.35);
+    animation:pulse 2.6s ease-out infinite;
+  }
+  .node:nth-child(1) .ring{border-color:var(--amber);}
+  .node:nth-child(1) .ring::after{border-color:rgba(240,169,59,.35);}
+  @keyframes pulse{0%{transform:scale(.6);opacity:.9;}100%{transform:scale(2.1);opacity:0;}}
+  @media (prefers-reduced-motion: reduce){ .node .ring::after{animation:none;} html{scroll-behavior:auto;} }
+  .node-name{font-size:13.5px;font-weight:600;}
+  .node-sub{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:3px;}
+  .connector{flex:0 0 auto;height:2px;width:36px;background:linear-gradient(90deg,var(--border),var(--teal),var(--border));margin-top:-30px;}
+
+  /* ---------- SECTIONS ---------- */
+  section{margin-top:56px;}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px;}
+  .sec-num{font-family:var(--mono);color:var(--amber);font-size:14px;}
+  h2{font-family:var(--serif);font-size:26px;margin:0;}
+  .sec-desc{color:var(--muted);max-width:760px;margin:8px 0 22px;font-size:15px;}
+
+  /* differentiation */
+  .diff-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;}
+  .diff-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-left:3px solid var(--teal);
+    border-radius:var(--radius);
+    padding:18px 18px;
+  }
+  .diff-card h3{margin:0 0 8px;font-size:15.5px;}
+  .diff-card p{margin:0;color:var(--muted);font-size:13.8px;}
+
+  /* moscow grid */
+  .moscow{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px;}
+  .m-col{border-radius:var(--radius);border:1px solid var(--border);background:var(--surface);overflow:hidden;}
+  .m-head{padding:14px 18px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;}
+  .m-head span.count{font-family:var(--mono);opacity:.75;}
+  .m-must .m-head{background:rgba(240,169,59,.14);color:var(--amber);border-bottom:1px solid rgba(240,169,59,.3);}
+  .m-should .m-head{background:rgba(111,207,123,.12);color:var(--green);border-bottom:1px solid rgba(111,207,123,.3);}
+  .m-could .m-head{background:rgba(52,209,196,.10);color:var(--teal);border-bottom:1px solid rgba(52,209,196,.3);}
+  .m-wont .m-head{background:rgba(226,99,90,.12);color:var(--coral);border-bottom:1px solid rgba(226,99,90,.3);}
+  .m-cant .m-head{background:rgba(139,150,179,.14);color:var(--muted);border-bottom:1px solid rgba(139,150,179,.3);}
+  .m-list{list-style:none;margin:0;padding:6px 0;}
+  .m-list li{padding:11px 18px;border-bottom:1px solid rgba(255,255,255,.04);font-size:13.6px;}
+  .m-list li:last-child{border-bottom:none;}
+  .m-list b{display:block;font-weight:600;margin-bottom:2px;}
+  .m-list span.why{color:var(--muted);font-size:12.6px;}
+
+  /* alignment table */
+  table{width:100%;border-collapse:collapse;font-size:13.6px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+  th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--border);vertical-align:top;}
+  th{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--elevated);}
+  tr:last-child td{border-bottom:none;}
+  td.pct{font-family:var(--mono);color:var(--amber);white-space:nowrap;}
+
+  /* stack table */
+  .stack-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;}
+  .stack-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;}
+  .stack-card h4{margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--teal);font-family:var(--mono);}
+  .stack-card .pick{font-weight:700;font-size:15px;margin-bottom:6px;}
+  .stack-card p{margin:0;color:var(--muted);font-size:13.2px;}
+
+  /* docs index */
+  .docs{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:10px;}
+  .doc-row{
+    display:flex;gap:12px;align-items:flex-start;
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:13px 16px;
+  }
+  .doc-row .fname{font-family:var(--mono);color:var(--teal);font-size:12.6px;white-space:nowrap;}
+  .doc-row .fdesc{font-size:13px;color:var(--muted);}
+
+  /* callout / footer */
+  .callout{
+    margin-top:60px;
+    border:1px dashed var(--border);
+    border-radius:var(--radius);
+    padding:20px 22px;
+    background:var(--elevated);
+    color:var(--muted);
+    font-size:13.4px;
+  }
+  .callout b{color:var(--text);}
+  footer{margin-top:24px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted);font-size:12.5px;font-family:var(--mono);}
+
+  @media print{
+    body{background:#fff;color:#000;}
+    .pipeline,.diff-card,.m-col,.stack-card,.doc-row,table,.callout{background:#fff;border-color:#ccc;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow"><span class="dot"></span>PLANNING DOCUMENT — NOT THE FINAL SUBMISSION</div>
+    <h1>Feature &amp; Implementation Plan</h1>
+    <p class="thesis">Multi-Agent Data Analyst for Enterprise Decision Support — DATASPHERE 26, Track 6. Every team in this room got the same problem statement. This document is the answer to the only question that actually matters: what do we build, what do we deliberately skip, and how do we make the judges remember this one.</p>
+    <div class="metabar">
+      <div class="chip">Track <b>06 — Generative AI &amp; Agentic AI</b></div>
+      <div class="chip">Problem <b>1 of 2 — Multi-Agent Data Analyst</b></div>
+      <div class="chip">Team <b>3 members</b></div>
+      <div class="chip">Window <b>24 hours, 07 Aug 2026</b></div>
+      <div class="chip">Compute <b>Cloud API + local model fallback</b></div>
+      <div class="chip">Dashboard <b>Power BI</b></div>
+    </div>
+  </header>
+
+  <div class="pipeline">
+    <div class="pipeline-label">The system, in one line — five agents, one deterministic core</div>
+    <div class="pipe-row">
+      <div class="node"><div class="ring"></div><div class="node-name">Orchestrator</div><div class="node-sub">intent + routing</div></div>
+      <div class="connector"></div>
+      <div class="node"><div class="ring"></div><div class="node-name">Data Agent</div><div class="node-sub">query + retrieve</div></div>
+      <div class="connector"></div>
+      <div class="node"><div class="ring"></div><div class="node-name">Analysis Agent</div><div class="node-sub">compute metrics</div></div>
+      <div class="connector"></div>
+      <div class="node"><div class="ring"></div><div class="node-name">Narrative Agent</div><div class="node-sub">explain in English</div></div>
+      <div class="connector"></div>
+      <div class="node"><div class="ring"></div><div class="node-name">Validator Agent</div><div class="node-sub">check + confidence</div></div>
+    </div>
+  </div>
+
+  <!-- ============ DIFFERENTIATION ============ -->
+  <section id="differentiation">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Why we don't blend into every other submission</h2></div>
+    <p class="sec-desc">A router agent calling an LLM to write SQL over a spreadsheet is now a weekend-project pattern — dozens of public repos do exactly this. The problem statement is common ground. These six choices are where the gap actually opens.</p>
+    <div class="diff-grid">
+      <div class="diff-card"><h3>Numbers come from code, not the LLM</h3><p>The Analysis Agent computes every figure with pandas/DuckDB before the Narrative Agent ever sees it. The LLM narrates numbers; it never invents them. This is the single biggest lever on Explainability and Model Performance.</p></div>
+      <div class="diff-card"><h3>A Validator Agent that can say "no"</h3><p>Every narrative is checked against the source computation before it reaches the user. Mismatches get caught, not shipped. Most teams demo the happy path only — we demo the refusal too.</p></div>
+      <div class="diff-card"><h3>Power BI as the boardroom layer</h3><p>Almost every comparable public project ships a Streamlit chat window and calls it a dashboard. We pair a lightweight chat/agent UI for interaction with an actual Power BI report for the exec-facing view — it looks, and is, more enterprise-credible in a 3-minute demo.</p></div>
+      <div class="diff-card"><h3>Hybrid LLM routing</h3><p>Cloud API as primary, local model as automatic fallback on failure or rate-limit. Most teams have one API key and one point of failure; a dropped connection mid-demo is a top-5 datathon failure mode we've simply removed.</p></div>
+      <div class="diff-card"><h3>A golden test set, shown live</h3><p>~18 fixed business questions run against the system before judging, with a pass count we can put on a slide. "It works" is an opinion; "17 of 18 test questions pass, here's the one that doesn't and why" is evidence.</p></div>
+      <div class="diff-card"><h3>Every answer ends in an action</h3><p>Not "revenue dropped 12% in Region West" — "revenue dropped 12% in Region West, driven by X; recommended action: Y; owner: Z; confidence: medium because sample size is small." Judges evaluating explainability and innovation are explicitly looking for this.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ MOSCOW ============ -->
+  <section id="scope">
+    <div class="sec-head"><span class="sec-num">02</span><h2>What we build, in what order</h2></div>
+    <p class="sec-desc">Must-Have is the floor a working, defensible, judged submission cannot fall below. Should-Have is where the score actually moves. Could-Have only gets touched once the first two columns are done and rehearsed. Won't and Can't are decided on purpose — read them before anyone "quickly adds" something at hour 19.</p>
+    <div class="moscow">
+      <div class="m-col m-must">
+        <div class="m-head">Must Have <span class="count">11</span></div>
+        <ul class="m-list">
+          <li><b>End-to-end demo, 5+ questions</b><span class="why">One clean run per business domain: sales, finance, ops, customer service.</span></li>
+          <li><b>Real orchestrator routing</b><span class="why">Intent classification picks the specialist agent — no single mega-prompt pretending to be "multi-agent."</span></li>
+          <li><b>Live query execution</b><span class="why">Data Agent generates and runs real pandas/SQL against the actual dataset, not canned answers.</span></li>
+          <li><b>Deterministic numeric layer</b><span class="why">All figures come from executed code. The LLM only writes English around them.</span></li>
+          <li><b>Plain-English narrative agent</b><span class="why">A non-technical exec should read the answer in under 10 seconds.</span></li>
+          <li><b>At least one chart per query</b><span class="why">Auto-generated, rendered inline, matched to the data shape.</span></li>
+          <li><b>Power BI dashboard, 4–6 KPIs</b><span class="why">Built against the real competition dataset, not a mock.</span></li>
+          <li><b>Visible agent trace</b><span class="why">Which agent ran, what query it used — shown, not hidden.</span></li>
+          <li><b>Clean, reproducible repo</b><span class="why">requirements.txt, README with run steps, zero hardcoded secrets.</span></li>
+          <li><b>All 7 required deliverables present</b><span class="why">Source code, AI/model pipeline, preprocessing pipeline, dashboard, docs, PPT, prediction/output file.</span></li>
+          <li><b>Rehearsed 3–5 min demo path</b><span class="why">Run at least twice before judging, offline-safe wherever possible.</span></li>
+        </ul>
+      </div>
+      <div class="m-col m-should">
+        <div class="m-head">Should Have <span class="count">10</span></div>
+        <ul class="m-list">
+          <li><b>Validator/Explainability Agent</b><span class="why">Cross-checks narrative against computed numbers before the user sees it.</span></li>
+          <li><b>Confidence score on every answer</b><span class="why">High / Medium / Low, with the one-line reason.</span></li>
+          <li><b>Recommended-action layer</b><span class="why">What to do, who owns it, why — attached to every insight.</span></li>
+          <li><b>Hybrid LLM routing</b><span class="why">Cloud API primary, local model fallback on failure or rate-limit.</span></li>
+          <li><b>Golden test set (~18 questions)</b><span class="why">Pass/fail tracked, ready to screenshot for judges.</span></li>
+          <li><b>Guardrails</b><span class="why">Max agent steps, retry limit, explicit "not enough data to answer confidently" refusal.</span></li>
+          <li><b>Shape-aware chart selection</b><span class="why">Trend → line, comparison → bar, composition → donut, distribution → histogram.</span></li>
+          <li><b>Messy-data moment in the demo</b><span class="why">Show one missing-value / mixed-type case handled live, not just the clean path.</span></li>
+          <li><b>One-page model/system card</b><span class="why">Documents known limitations honestly — judges ask for this directly.</span></li>
+          <li><b>Power BI slicer or drill-through</b><span class="why">At least one interactive element, not a static screenshot.</span></li>
+        </ul>
+      </div>
+      <div class="m-col m-could">
+        <div class="m-head">Could Have <span class="count">6</span></div>
+        <ul class="m-list">
+          <li><b>Proactive anomaly agent</b><span class="why">Flags unusual spikes without being asked.</span></li>
+          <li><b>Multi-turn memory</b><span class="why">Follow-up questions referencing the prior answer.</span></li>
+          <li><b>Voice input</b><span class="why">Pure demo flair — last thing built, first thing cut.</span></li>
+          <li><b>Exportable executive brief</b><span class="why">One-paragraph PDF/text summary, auto-generated.</span></li>
+          <li><b>Second domain specialist agent</b><span class="why">E.g. customer-service ticket sentiment, beyond sales/finance/ops.</span></li>
+          <li><b>Live Power BI publish-to-web embed</b><span class="why">Inside the chat UI, instead of pinned/static tiles.</span></li>
+        </ul>
+      </div>
+      <div class="m-col m-wont">
+        <div class="m-head">Won't Have <span class="count">7</span></div>
+        <ul class="m-list">
+          <li><b>Fine-tuning a custom LLM</b><span class="why">Zero visible payoff in 24 hours, real risk of eating the clock.</span></li>
+          <li><b>Generic multi-dataset connector</b><span class="why">Build for the actual competition dataset, not a universal BI platform.</span></li>
+          <li><b>Login / auth / multi-tenant access</b><span class="why">Not in the rubric. Not worth an hour.</span></li>
+          <li><b>AutoML / hyperparameter search</b><span class="why">The "model" here is the agent + data pipeline, not a leaderboard score.</span></li>
+          <li><b>Production security hardening</b><span class="why">A clean .env and no exposed keys is enough for a demo-grade system.</span></li>
+          <li><b>Auto-generated Jupyter notebooks</b><span class="why">Some repos do this — it doesn't move any judging category here.</span></li>
+          <li><b>Mobile app / responsive PWA</b><span class="why">The room sees a laptop screen. Build for that screen.</span></li>
+        </ul>
+      </div>
+      <div class="m-col m-cant">
+        <div class="m-head">Can't Have <span class="count">5</span></div>
+        <ul class="m-list">
+          <li><b>Guaranteed internet-free Power BI Service</b><span class="why">Cloud Power BI needs internet. Power BI Desktop + a local .pbix file is the safe path.</span></li>
+          <li><b>Genuine enterprise / PII data</b><span class="why">It's a competition dataset. Don't overclaim privacy capability the demo can't prove.</span></li>
+          <li><b>Rigorous accuracy benchmark vs. ground truth</b><span class="why">No time to build one. The golden test set + deterministic architecture is the honest substitute.</span></li>
+          <li><b>Zero-hallucination guarantee</b><span class="why">No system can promise this. The honest claim is "caught before the user sees it," not "never happens."</span></li>
+          <li><b>Fully autonomous high-stakes actions</b><span class="why">Keep the human-approval checkpoint. Say why, out loud, when asked.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ JUDGING ALIGNMENT ============ -->
+  <section id="alignment">
+    <div class="sec-head"><span class="sec-num">03</span><h2>What each feature is actually scored on</h2></div>
+    <p class="sec-desc">Displayed weights are the emphasis DATASPHERE published on its evaluation page — treat them as emphasis, not confirmed math, until the official rubric says otherwise. Every row below still tells you where to spend hour 14 versus hour 20.</p>
+    <table>
+      <thead><tr><th>Criterion</th><th>Emphasis</th><th>Primarily served by</th></tr></thead>
+      <tbody>
+        <tr><td>Problem Understanding</td><td class="pct">85%</td><td>Orchestrator's intent classification; recommended-action layer; the business-question test set covering all four data domains named in the problem statement.</td></tr>
+        <tr><td>Data Preprocessing</td><td class="pct">90%</td><td>Data Agent's cleaning/query layer; the live messy-data moment in the demo.</td></tr>
+        <tr><td>Feature Engineering</td><td class="pct">80%</td><td>Analysis Agent's derived metrics — YoY %, trend slope, top-N, anomaly flags — computed before any language generation.</td></tr>
+        <tr><td>Model Performance</td><td class="pct">95%</td><td>Deterministic numeric core; golden test set pass rate shown as evidence.</td></tr>
+        <tr><td>Explainability</td><td class="pct">75%</td><td>Validator Agent; visible agent trace; confidence scoring; the one-page model/system card.</td></tr>
+        <tr><td>Innovation</td><td class="pct">85%</td><td>Hybrid LLM routing; Power BI as the enterprise layer; the validator cross-check pattern; the human-approval checkpoint on high-risk recommendations.</td></tr>
+        <tr><td>Visualization</td><td class="pct">80%</td><td>Power BI dashboard with slicer/drill-through; shape-aware auto chart selection.</td></tr>
+        <tr><td>Presentation &amp; Q&amp;A</td><td class="pct">90%</td><td>Rehearsed demo path; golden test evidence on a slide; the judge Q&amp;A prep doc.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ DASHBOARD SNAPSHOT ============ -->
+  <section id="dashboard">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Dashboard: Power BI, with an honest fallback</h2></div>
+    <p class="sec-desc">Full build detail lives in <span class="fname" style="font-family:var(--mono);color:var(--teal)">05-dashboard-powerbi-integration.md</span>. The short version:</p>
+    <table>
+      <thead><tr><th>Path</th><th>What it is</th><th>When to use it</th></tr></thead>
+      <tbody>
+        <tr><td><b>Primary</b></td><td>Power BI Desktop report (.pbix) built on the competition dataset, refreshed from the agents' output tables (CSV/Parquet or a local DuckDB file). No cloud login required.</td><td>Default plan for the whole event.</td></tr>
+        <tr><td><b>Reach</b></td><td>Power BI dataset pushed via REST API so the report updates live as the agents run, or a publish-to-web embed inside the chat UI.</td><td>Only after the Must-Haves are demo-stable and hours remain.</td></tr>
+        <tr><td><b>Fallback</b></td><td>A Power-BI-styled custom dashboard (Plotly/Dash or Streamlit) — same KPI-card + slicer visual language, no Power BI dependency at all.</td><td>If venue Wi-Fi, licensing, or Desktop install problems threaten the live demo.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ============ STACK ============ -->
+  <section id="stack">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Stack, at a glance</h2></div>
+    <p class="sec-desc">Full reasoning and alternatives are in <span style="font-family:var(--mono);color:var(--teal)">07-tech-stack-and-tooling.md</span>.</p>
+    <div class="stack-grid">
+      <div class="stack-card"><h4>Agent orchestration</h4><div class="pick">CrewAI (primary)</div><p>Role-based, fastest to stand up for a 3-person team in 24 hours. LangGraph only if the validator loop needs more explicit state control.</p></div>
+      <div class="stack-card"><h4>LLM — cloud</h4><div class="pick">Whichever key is ready first</div><p>OpenAI / Anthropic / Gemini / Groq — pick one as primary based on available keys and rate limits on the day.</p></div>
+      <div class="stack-card"><h4>LLM — local fallback</h4><div class="pick">Ollama or NVIDIA NIM</div><p>Small instruction model (e.g. llama3.1:8b / qwen2.5) kept warm as the offline/rate-limit fallback.</p></div>
+      <div class="stack-card"><h4>Data engine</h4><div class="pick">pandas + DuckDB</div><p>In-process SQL over dataframes — no server to stand up, fast enough for the dataset sizes this event uses.</p></div>
+      <div class="stack-card"><h4>Chat / agent UI</h4><div class="pick">Streamlit</div><p>Fastest path to a working, demo-able interface for non-technical users.</p></div>
+      <div class="stack-card"><h4>Dashboard</h4><div class="pick">Power BI Desktop</div><p>Exec-facing KPI layer, refreshed from agent output — see section 04.</p></div>
+      <div class="stack-card"><h4>Charts (in-app)</h4><div class="pick">Plotly</div><p>Inline charts inside the chat/agent responses, separate from the Power BI report.</p></div>
+      <div class="stack-card"><h4>Version control</h4><div class="pick">GitHub, public or reviewer-access repo</div><p>Required by the event rules — confirm access before the countdown ends.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ COMPANION DOCS ============ -->
+  <section id="docs">
+    <div class="sec-head"><span class="sec-num">06</span><h2>The full planning set</h2></div>
+    <p class="sec-desc">This page is the summary. Each of these carries the full depth — read the one for whatever you're about to build.</p>
+    <div class="docs">
+      <div class="doc-row"><div class="fname">01-problem-analysis-and-competitive-landscape.md</div><div class="fdesc">Problem breakdown, stakeholders, what similar public repos already do, why that matters here.</div></div>
+      <div class="doc-row"><div class="fname">02-requirements-and-user-stories.md</div><div class="fdesc">Functional/non-functional requirements, user stories, acceptance criteria, judge-alignment matrix.</div></div>
+      <div class="doc-row"><div class="fname">03-multi-agent-architecture.md</div><div class="fdesc">Full agent-by-agent design, data flow, framework choice, architecture decision records.</div></div>
+      <div class="doc-row"><div class="fname">04-data-strategy-and-nl-to-insight-pipeline.md</div><div class="fdesc">Data plan, rehearsal datasets, cleaning approach, the NL-question-to-answer pipeline in detail.</div></div>
+      <div class="doc-row"><div class="fname">05-dashboard-powerbi-integration.md</div><div class="fdesc">Power BI build plan — primary, reach, and fallback paths, step by step.</div></div>
+      <div class="doc-row"><div class="fname">06-evaluation-explainability-safety.md</div><div class="fdesc">Metrics, golden test set design, explainability techniques, guardrails, model/system card templates.</div></div>
+      <div class="doc-row"><div class="fname">07-tech-stack-and-tooling.md</div><div class="fdesc">Full stack table with reasoning, alternatives, and the hybrid cloud/local LLM routing design.</div></div>
+      <div class="doc-row"><div class="fname">08-team-roles-and-24hr-execution-plan.md</div><div class="fdesc">3-person role split, hour-by-hour plan from tonight through submission.</div></div>
+      <div class="doc-row"><div class="fname">09-risk-register-and-blind-spots.md</div><div class="fdesc">Every risk we could find, plus the blind spots teams routinely miss at this exact event.</div></div>
+      <div class="doc-row"><div class="fname">10-presentation-and-judge-qa.md</div><div class="fdesc">Slide plan, speaking flow, and a full judge Q&amp;A answer bank.</div></div>
+      <div class="doc-row"><div class="fname">11-submission-checklist.md</div><div class="fdesc">Final artifact-by-artifact checklist mapped to the 7 required deliverables.</div></div>
+    </div>
+  </section>
+
+  <div class="callout">
+    <b>Planning tool only.</b> This document and its companions are preparation aids. The actual idea execution, model/agent build, data analysis, dashboard, and final submission materials must be produced by the team during the official 24-hour event window, per DATASPHERE 26 rules. Displayed judging percentages are DATASPHERE's published emphasis, not confirmed mathematical weights — verify against the official rubric if one is released. No result, benchmark, or score on this page is a real competition result; treat everything here as scope and a plan, not evidence.
+  </div>
+
+  <footer>DATASPHERE 26 · Track 06 · Sathyabama Institute of Science and Technology · Planning document generated for team preparation</footer>
+</div>
+</body>
+</html>

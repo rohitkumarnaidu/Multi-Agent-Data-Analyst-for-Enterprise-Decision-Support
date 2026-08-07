@@ -1,0 +1,20 @@
+# Node
+node_modules/
+package.json
+package-lock.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# Temporary / Generated Artifacts
+unpacked/
+*.txt
+generate_premium_ppt.js
+create_js_script.py
+
+# Unwanted Presentations
+Multi-Agent_Data_Analyst_Final.pptx
