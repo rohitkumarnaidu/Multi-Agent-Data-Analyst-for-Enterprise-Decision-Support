@@ -1,0 +1,76 @@
+metrics:
+- name: total_revenue
+  sql: SUM(Revenue_Impact_USD)
+  allowed_dimensions:
+  - Department
+  - Region
+  - Transaction_Date
+  - Business_Unit
+  description: Total revenue impact in USD
+- name: total_transaction_amount
+  sql: SUM(Transaction_Amount_USD)
+  allowed_dimensions:
+  - Department
+  - Region
+  - Transaction_Date
+  - Customer_Segment
+  description: Gross transaction amount before savings or revenue impact
+- name: average_processing_time
+  sql: AVG(Processing_Time_Sec)
+  allowed_dimensions:
+  - Department
+  - Assigned_Agent
+  - Transaction_Date
+  description: Average query processing time in seconds
+- name: total_cost_savings
+  sql: SUM(Cost_Savings_Potential_USD)
+  allowed_dimensions:
+  - Department
+  - Region
+  - Transaction_Date
+  description: Total potential cost savings identified in USD
+- name: average_query_complexity
+  sql: AVG(Query_Complexity_Score)
+  allowed_dimensions:
+  - Department
+  - Assigned_Agent
+  - Transaction_Date
+  - Query_Type
+  description: Average complexity score of processed queries
+- name: sla_breach_rate
+  sql: SUM(CAST(SLA_Breached AS INTEGER)) * 1.0 / COUNT(*)
+  allowed_dimensions:
+  - Department
+  - Assigned_Agent
+  - Region
+  - Transaction_Date
+  description: Percentage of queries that breached SLA
+- name: average_data_quality
+  sql: AVG(Data_Quality_Score)
+  allowed_dimensions:
+  - Data_Source_System
+  - Transaction_Date
+  - Department
+  description: Average score representing incoming data quality
+- name: anomaly_rate
+  sql: SUM(CAST(Anomaly_Detected AS INTEGER)) * 1.0 / COUNT(*)
+  allowed_dimensions:
+  - Department
+  - Region
+  - Transaction_Date
+  description: Percentage of transactions flagged as anomalies
+- name: total_margin
+  sql: SUM(Total_Margin_USD)
+  allowed_dimensions:
+  - Department
+  - Region
+  - Transaction_Date
+  description: Combined value of Revenue Impact and Cost Savings (Engineered Feature)
+- name: average_tokens_per_second
+  sql: AVG(Tokens_Per_Second)
+  allowed_dimensions:
+  - Assigned_Agent
+  - Department
+  - Transaction_Date
+  description: 'Efficiency metric: Total tokens processed per second of processing
+    time'

@@ -1,0 +1,94 @@
+registry_version: "2.0"
+domain: "Multi-Agent Data Analyst"
+
+features:
+  - name: Start_Timestamp
+    version: 1.0
+    datatype: datetime
+    source: [Timestamp, Processing_Time_Sec]
+    formula: "Timestamp - Processing_Time_Sec"
+    owner: "Data Engineering"
+    category: temporal
+    validation: PASS
+    status: Production
+  - name: Total_Margin_USD
+    version: 1.0
+    datatype: float
+    source: [Revenue_Impact_USD, Cost_Savings_Potential_USD]
+    formula: "Revenue + Cost"
+    owner: "Finance"
+    category: business
+    validation: PASS
+    status: Production
+  - name: Tokens_Per_Second
+    version: 1.0
+    datatype: float
+    source: [Input_Tokens, Output_Tokens, Processing_Time_Sec]
+    formula: "(In + Out)/Time"
+    owner: "MLOps"
+    category: ai
+    validation: PASS
+    status: Production
+  - name: Complexity_Per_Agent
+    version: 1.0
+    datatype: float
+    source: [Query_Complexity_Score, Num_Agents_Involved]
+    formula: "Complexity/Agents"
+    owner: "MLOps"
+    category: ai
+    validation: PASS
+    status: Production
+  - name: Rolling_7_Txn_Avg_Amount_By_Dept
+    version: 1.0
+    datatype: float
+    source: [Transaction_Amount_USD, Department]
+    formula: "rolling(7).mean"
+    owner: "Data Science"
+    category: temporal_aggregate
+    validation: PASS
+    status: Production
+  - name: Prev_Txn_Amount_By_Dept
+    version: 1.0
+    datatype: float
+    source: [Transaction_Amount_USD, Department]
+    formula: "shift(1)"
+    owner: "Data Science"
+    category: temporal_lag
+    validation: PASS
+    status: Production
+  - name: PoP_Amount_Change_Pct
+    version: 1.0
+    datatype: float
+    source: [Transaction_Amount_USD, Prev_Txn_Amount_By_Dept]
+    formula: "(Curr - Prev)/Prev"
+    owner: "Data Science"
+    category: business_aggregate
+    validation: PASS
+    status: Production
+  - name: Rank_Amount_Within_Dept
+    version: 1.0
+    datatype: int
+    source: [Transaction_Amount_USD, Department]
+    formula: "rank(dense)"
+    owner: "Data Science"
+    category: ranking
+    validation: PASS
+    status: Production
+  - name: Day_Of_Week
+    version: 1.0
+    datatype: string
+    source: [Timestamp]
+    formula: "day_name()"
+    owner: "Data Engineering"
+    category: temporal
+    validation: PASS
+    status: Production
+  - name: Is_Weekend
+    version: 1.0
+    datatype: boolean
+    source: [Timestamp]
+    formula: "dayofweek >= 5"
+    owner: "Data Engineering"
+    category: temporal
+    validation: PASS
+    status: Production

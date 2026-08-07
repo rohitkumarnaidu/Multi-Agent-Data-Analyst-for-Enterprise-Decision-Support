@@ -1,0 +1,54 @@
+version: 1.0
+contracts:
+  Start_Timestamp:
+    datatype: datetime64[ns]
+    nullable: false
+    required: true
+    transformation: timestamp_extrapolation
+  Day_Of_Week:
+    datatype: object
+    nullable: false
+    required: true
+    encoding: one_hot_candidate
+  Is_Weekend:
+    datatype: bool
+    nullable: false
+    required: true
+    encoding: binary
+  Total_Margin_USD:
+    datatype: float64
+    nullable: false
+    required: true
+    range: [-inf, inf]
+    scaling: standard_scaler_candidate
+  Tokens_Per_Second:
+    datatype: float64
+    nullable: true
+    required: false
+    range: [0.0, inf]
+    validation: div_by_zero_protected
+  Complexity_Per_Agent:
+    datatype: float64
+    nullable: true
+    required: false
+    range: [0.0, 10.0]
+    validation: div_by_zero_protected
+  Rolling_7_Txn_Avg_Amount_By_Dept:
+    datatype: float64
+    nullable: true
+    required: false
+    validation: sorted_timestamp_leakage_protected
+  Prev_Txn_Amount_By_Dept:
+    datatype: float64
+    nullable: true
+    required: false
+  PoP_Amount_Change_Pct:
+    datatype: float64
+    nullable: true
+    required: false
+    validation: div_by_zero_protected
+  Rank_Amount_Within_Dept:
+    datatype: float64
+    nullable: false
+    required: true
+    range: [1, inf]

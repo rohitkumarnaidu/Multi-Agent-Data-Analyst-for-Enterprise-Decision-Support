@@ -1,0 +1,72 @@
+{
+  "Start_Timestamp": {
+    "type": "datetime",
+    "category": "temporal",
+    "version": "1.0",
+    "owner": "Data Engineering",
+    "status": "Production"
+  },
+  "Day_Of_Week": {
+    "type": "categorical",
+    "category": "temporal",
+    "version": "1.0",
+    "owner": "Data Engineering",
+    "status": "Production"
+  },
+  "Is_Weekend": {
+    "type": "boolean",
+    "category": "temporal",
+    "version": "1.0",
+    "owner": "Data Engineering",
+    "status": "Production"
+  },
+  "Total_Margin_USD": {
+    "type": "float",
+    "category": "business",
+    "version": "1.0",
+    "owner": "Finance",
+    "status": "Production"
+  },
+  "Tokens_Per_Second": {
+    "type": "float",
+    "category": "ai",
+    "version": "1.0",
+    "owner": "MLOps",
+    "status": "Production"
+  },
+  "Complexity_Per_Agent": {
+    "type": "float",
+    "category": "ai",
+    "version": "1.0",
+    "owner": "MLOps",
+    "status": "Production"
+  },
+  "Rolling_7_Txn_Avg_Amount_By_Dept": {
+    "type": "float",
+    "category": "temporal_aggregate",
+    "version": "1.0",
+    "owner": "Data Science",
+    "status": "Production"
+  },
+  "Prev_Txn_Amount_By_Dept": {
+    "type": "float",
+    "category": "temporal_lag",
+    "version": "1.0",
+    "owner": "Data Science",
+    "status": "Production"
+  },
+  "PoP_Amount_Change_Pct": {
+    "type": "float",
+    "category": "business_aggregate",
+    "version": "1.0",
+    "owner": "Finance",
+    "status": "Production"
+  },
+  "Rank_Amount_Within_Dept": {
+    "type": "int",
+    "category": "ranking",
+    "version": "1.0",
+    "owner": "Data Science",
+    "status": "Production"
+  }
+}
