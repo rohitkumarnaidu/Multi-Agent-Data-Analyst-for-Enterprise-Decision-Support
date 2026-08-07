@@ -1,0 +1,46 @@
+{
+  "numeric": [
+    "Query_Complexity_Score",
+    "KPI_Target_Value",
+    "Deviation_Percentage",
+    "Revenue_Impact_USD",
+    "Cost_Savings_Potential_USD",
+    "Anomaly_Score",
+    "Token_Efficiency",
+    "Cost_Per_Token",
+    "Accuracy_Deviation",
+    "Hour",
+    "Day_of_Week",
+    "Month"
+  ],
+  "binary": [],
+  "low_cardinality": [
+    "Department",
+    "Business_Unit",
+    "Region",
+    "Data_Source_System",
+    "Assigned_Agent",
+    "Query_Type",
+    "Priority_Level",
+    "Risk_Level",
+    "Escalation_Level",
+    "Customer_Segment"
+  ],
+  "high_cardinality": [
+    "KPI_Metric_Name",
+    "Root_Cause_Category",
+    "Recommended_Action",
+    "Employee_ID_Handler"
+  ],
+  "dropped_vif": [
+    "Year",
+    "Quarter",
+    "Processing_Time_Sec",
+    "Output_Tokens",
+    "Input_Tokens",
+    "KPI_Current_Value",
+    "Num_Agents_Involved",
+    "Data_Quality_Score",
+    "Transaction_Amount_USD"
+  ]
+}

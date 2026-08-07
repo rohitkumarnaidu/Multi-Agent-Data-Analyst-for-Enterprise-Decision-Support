@@ -16,6 +16,7 @@ env/
 # ── Data (large files) ──
 data/raw/*.csv
 data/cleaned_*.csv
+data/*.csv
 !data/raw/.gitkeep
 
 # ── ChromaDB (vector store) ──
