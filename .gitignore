@@ -1,20 +1,45 @@
-# Node
-node_modules/
-package.json
-package-lock.json
-
-# Python
+# ── Python ──
 __pycache__/
 *.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
 .venv/
 venv/
 env/
 
-# Temporary / Generated Artifacts
-unpacked/
-*.txt
-generate_premium_ppt.js
-create_js_script.py
+# ── Environment (secrets) ──
+.env
+!.env.example
 
-# Unwanted Presentations
-Multi-Agent_Data_Analyst_Final.pptx
+# ── Data (large files) ──
+data/raw/*.csv
+data/cleaned_*.csv
+!data/raw/.gitkeep
+
+# ── ChromaDB (vector store) ──
+.chroma_db/
+
+# ── ML Models (binary) ──
+*.pkl
+*.joblib
+*.xgb
+
+# ── IDE ──
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ── Node (for pptx generator) ──
+node_modules/
+package-lock.json
+
+# ── Temporary ──
+.tmp/
+unpacked/
+outputs/
+eval/
