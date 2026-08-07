@@ -1,0 +1,353 @@
+[
+    {
+        "column_name": "Record_ID",
+        "inferred_type": "str",
+        "null_count": 0,
+        "cardinality": 200000,
+        "classification": "identifier",
+        "is_pii": true,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Transaction_Date",
+        "inferred_type": "datetime64[us]",
+        "null_count": 0,
+        "cardinality": 1095,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Timestamp",
+        "inferred_type": "datetime64[us]",
+        "null_count": 0,
+        "cardinality": 199571,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Department",
+        "inferred_type": "str",
+        "null_count": 0,
+        "cardinality": 7,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Business_Unit",
+        "inferred_type": "str",
+        "null_count": 0,
+        "cardinality": 4,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Region",
+        "inferred_type": "str",
+        "null_count": 4005,
+        "cardinality": 5,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Data_Source_System",
+        "inferred_type": "str",
+        "null_count": 0,
+        "cardinality": 9,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Assigned_Agent",
+        "inferred_type": "str",
+        "null_count": 0,
+        "cardinality": 7,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Query_Type",
+        "inferred_type": "str",
+        "null_count": 0,
+        "cardinality": 7,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Num_Agents_Involved",
+        "inferred_type": "int64",
+        "null_count": 0,
+        "cardinality": 5,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Query_Complexity_Score",
+        "inferred_type": "float64",
+        "null_count": 0,
+        "cardinality": 971,
+        "classification": "measure",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Input_Tokens",
+        "inferred_type": "int64",
+        "null_count": 0,
+        "cardinality": 1317,
+        "classification": "measure",
+        "is_pii": false,
+        "outlier_count": 146
+    },
+    {
+        "column_name": "Output_Tokens",
+        "inferred_type": "int64",
+        "null_count": 0,
+        "cardinality": 842,
+        "classification": "measure",
+        "is_pii": false,
+        "outlier_count": 177
+    },
+    {
+        "column_name": "Processing_Time_Sec",
+        "inferred_type": "float64",
+        "null_count": 4049,
+        "cardinality": 1653,
+        "classification": "measure",
+        "is_pii": false,
+        "outlier_count": 377
+    },
+    {
+        "column_name": "KPI_Metric_Name",
+        "inferred_type": "str",
+        "null_count": 0,
+        "cardinality": 21,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "KPI_Current_Value",
+        "inferred_type": "float64",
+        "null_count": 4045,
+        "cardinality": 30785,
+        "classification": "measure",
+        "is_pii": false,
+        "outlier_count": 6116
+    },
+    {
+        "column_name": "KPI_Target_Value",
+        "inferred_type": "float64",
+        "null_count": 0,
+        "cardinality": 29992,
+        "classification": "measure",
+        "is_pii": false,
+        "outlier_count": 6206
+    },
+    {
+        "column_name": "Deviation_Percentage",
+        "inferred_type": "float64",
+        "null_count": 0,
+        "cardinality": 6995,
+        "classification": "measure",
+        "is_pii": false,
+        "outlier_count": 595
+    },
+    {
+        "column_name": "Transaction_Amount_USD",
+        "inferred_type": "float64",
+        "null_count": 0,
+        "cardinality": 193445,
+        "classification": "measure",
+        "is_pii": false,
+        "outlier_count": 2735
+    },
+    {
+        "column_name": "Revenue_Impact_USD",
+        "inferred_type": "float64",
+        "null_count": 0,
+        "cardinality": 144001,
+        "classification": "measure",
+        "is_pii": false,
+        "outlier_count": 2672
+    },
+    {
+        "column_name": "Cost_Savings_Potential_USD",
+        "inferred_type": "float64",
+        "null_count": 4964,
+        "cardinality": 62099,
+        "classification": "measure",
+        "is_pii": false,
+        "outlier_count": 2155
+    },
+    {
+        "column_name": "Anomaly_Detected",
+        "inferred_type": "bool",
+        "null_count": 0,
+        "cardinality": 2,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Anomaly_Score",
+        "inferred_type": "float64",
+        "null_count": 0,
+        "cardinality": 759,
+        "classification": "measure",
+        "is_pii": false,
+        "outlier_count": 1490
+    },
+    {
+        "column_name": "Confidence_Score",
+        "inferred_type": "float64",
+        "null_count": 0,
+        "cardinality": 763,
+        "classification": "measure",
+        "is_pii": false,
+        "outlier_count": 342
+    },
+    {
+        "column_name": "Data_Quality_Score",
+        "inferred_type": "float64",
+        "null_count": 5995,
+        "cardinality": 749,
+        "classification": "measure",
+        "is_pii": false,
+        "outlier_count": 1479
+    },
+    {
+        "column_name": "Root_Cause_Category",
+        "inferred_type": "str",
+        "null_count": 0,
+        "cardinality": 10,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Recommended_Action",
+        "inferred_type": "str",
+        "null_count": 0,
+        "cardinality": 10,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Priority_Level",
+        "inferred_type": "str",
+        "null_count": 0,
+        "cardinality": 4,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Risk_Level",
+        "inferred_type": "str",
+        "null_count": 0,
+        "cardinality": 3,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Escalation_Level",
+        "inferred_type": "str",
+        "null_count": 0,
+        "cardinality": 5,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Decision_Outcome",
+        "inferred_type": "str",
+        "null_count": 0,
+        "cardinality": 4,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "SLA_Breached",
+        "inferred_type": "bool",
+        "null_count": 0,
+        "cardinality": 2,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Agent_Accuracy_Feedback",
+        "inferred_type": "float64",
+        "null_count": 144000,
+        "cardinality": 86,
+        "classification": "measure",
+        "is_pii": false,
+        "outlier_count": 281
+    },
+    {
+        "column_name": "Employee_ID_Handler",
+        "inferred_type": "str",
+        "null_count": 144000,
+        "cardinality": 8984,
+        "classification": "identifier",
+        "is_pii": true,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Customer_Segment",
+        "inferred_type": "str",
+        "null_count": 103864,
+        "cardinality": 4,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Report_Summary_Text",
+        "inferred_type": "str",
+        "null_count": 5910,
+        "cardinality": 68636,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Requires_Human_Review",
+        "inferred_type": "bool",
+        "null_count": 0,
+        "cardinality": 2,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Processing_Time_Sec_Is_Outlier",
+        "inferred_type": "bool",
+        "null_count": 0,
+        "cardinality": 2,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    },
+    {
+        "column_name": "Transaction_Amount_USD_Is_Outlier",
+        "inferred_type": "bool",
+        "null_count": 0,
+        "cardinality": 2,
+        "classification": "dimension",
+        "is_pii": false,
+        "outlier_count": 0
+    }
+]

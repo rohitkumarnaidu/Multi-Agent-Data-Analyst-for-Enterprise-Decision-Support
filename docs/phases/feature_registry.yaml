@@ -1,0 +1,55 @@
+registry_version: "1.0"
+last_updated: "2026-08-07"
+domain: "Multi-Agent Data Analyst"
+
+features:
+  Start_Timestamp:
+    type: datetime
+    category: temporal
+    version: 1.0
+    sources: [Timestamp, Processing_Time_Sec]
+  Day_Of_Week:
+    type: string
+    category: temporal
+    version: 1.0
+    sources: [Timestamp]
+  Is_Weekend:
+    type: boolean
+    category: temporal
+    version: 1.0
+    sources: [Timestamp]
+  Total_Margin_USD:
+    type: float
+    category: business
+    version: 1.0
+    sources: [Revenue_Impact_USD, Cost_Savings_Potential_USD]
+  Tokens_Per_Second:
+    type: float
+    category: ai
+    version: 1.0
+    sources: [Input_Tokens, Output_Tokens, Processing_Time_Sec]
+  Complexity_Per_Agent:
+    type: float
+    category: ai
+    version: 1.0
+    sources: [Query_Complexity_Score, Num_Agents_Involved]
+  Rolling_7_Txn_Avg_Amount_By_Dept:
+    type: float
+    category: temporal_aggregate
+    version: 1.0
+    sources: [Transaction_Amount_USD, Department, Timestamp]
+  Prev_Txn_Amount_By_Dept:
+    type: float
+    category: temporal_lag
+    version: 1.0
+    sources: [Transaction_Amount_USD, Department, Timestamp]
+  PoP_Amount_Change_Pct:
+    type: float
+    category: business_aggregate
+    version: 1.0
+    sources: [Transaction_Amount_USD, Prev_Txn_Amount_By_Dept]
+  Rank_Amount_Within_Dept:
+    type: float
+    category: ranking
+    version: 1.0
+    sources: [Transaction_Amount_USD, Department]
