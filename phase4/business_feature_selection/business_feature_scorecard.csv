@@ -1,0 +1,45 @@
+Feature Name,Business Score,Executive Score,AI-Agent Score,Dashboard Score,Decision Support Score,Overall Business Score,Classification
+Department,5,2,2,5,5,4.1,REVIEW
+Business_Unit,5,2,2,5,5,4.1,REVIEW
+Region,5,2,2,5,5,4.1,REVIEW
+Data_Source_System,5,2,2,5,5,4.1,REVIEW
+Assigned_Agent,5,2,2,5,5,4.1,REVIEW
+Query_Type,7,4,10,6,8,6.6,KEEP (AI Critical)
+Num_Agents_Involved,5,2,2,5,5,4.1,REVIEW
+Query_Complexity_Score,8,8,2,9,7,7.5,KEEP (Executive KPI)
+Input_Tokens,7,4,10,6,8,6.6,KEEP (AI Critical)
+Output_Tokens,7,4,10,6,8,6.6,KEEP (AI Critical)
+Processing_Time_Sec,8,8,2,9,7,7.5,KEEP (Executive KPI)
+KPI_Metric_Name,8,8,2,9,7,7.5,KEEP (Executive KPI)
+KPI_Current_Value,8,8,2,9,7,7.5,KEEP (Executive KPI)
+KPI_Target_Value,8,8,2,9,7,7.5,KEEP (Executive KPI)
+Deviation_Percentage,8,8,2,9,7,7.5,KEEP (Executive KPI)
+Transaction_Amount_USD,10,10,2,9,10,9.0,KEEP (Business Critical)
+Revenue_Impact_USD,9,10,2,9,8,8.4,KEEP (Business Critical)
+Cost_Savings_Potential_USD,9,10,2,9,8,8.4,KEEP (Business Critical)
+Anomaly_Score,8,8,2,9,7,7.5,KEEP (Executive KPI)
+Confidence_Score,8,8,2,9,7,7.5,KEEP (Executive KPI)
+Data_Quality_Score,8,8,2,9,7,7.5,KEEP (Executive KPI)
+Root_Cause_Category,5,2,2,5,5,4.1,REVIEW
+Recommended_Action,6,2,2,5,10,5.0,OPTIONAL
+Priority_Level,5,2,2,5,5,4.1,REVIEW
+Risk_Level,7,6,2,7,9,6.5,OPTIONAL
+Escalation_Level,7,6,2,7,9,6.5,OPTIONAL
+Decision_Outcome,6,2,2,5,10,5.0,OPTIONAL
+SLA_Breached,8,8,2,9,7,7.5,KEEP (Executive KPI)
+Agent_Accuracy_Feedback,5,2,2,5,5,4.1,REVIEW
+Employee_ID_Handler,5,2,2,5,5,4.1,REVIEW
+Customer_Segment,8,7,2,8,7,7.1,KEEP (Dashboard Critical)
+Report_Summary_Text,5,2,2,5,5,4.1,REVIEW
+Requires_Human_Review,5,2,2,5,5,4.1,REVIEW
+Processing_Time_Sec_Is_Outlier,8,8,2,9,7,7.5,KEEP (Executive KPI)
+Transaction_Amount_USD_Is_Outlier,10,10,2,9,10,9.0,KEEP (Business Critical)
+Day_Of_Week,5,2,2,5,5,4.1,REVIEW
+Is_Weekend,5,2,2,5,5,4.1,REVIEW
+Total_Margin_USD,9,10,2,9,8,8.4,KEEP (Business Critical)
+Tokens_Per_Second,7,4,10,6,8,6.6,KEEP (AI Critical)
+Complexity_Per_Agent,5,2,2,5,5,4.1,REVIEW
+Rolling_7_Txn_Avg_Amount_By_Dept,9,10,2,9,8,8.4,KEEP (Business Critical)
+Prev_Txn_Amount_By_Dept,9,10,2,9,8,8.4,KEEP (Business Critical)
+PoP_Amount_Change_Pct,9,10,2,9,8,8.4,KEEP (Business Critical)
+Rank_Amount_Within_Dept,9,10,2,9,8,8.4,KEEP (Business Critical)

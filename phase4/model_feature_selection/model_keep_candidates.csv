@@ -1,0 +1,16 @@
+Feature Name,Random Forest Rank,Extra Trees Rank,XGBoost Rank,LightGBM Rank,CatBoost Rank,RFE Rank,RFECV Rank,Permutation Rank,Average Rank,Rank Std (Stability),Consensus Rank,Classification
+Anomaly_Score,1,3,1,1,1,1,1,2,1.375,0.7440238091428449,1,KEEP (High Confidence)
+Risk_Level,2,1,25,2,2,4,4,1,5.125,8.114141095290721,2,KEEP (High Confidence)
+Escalation_Level,3,2,26,3,3,3,3,3,5.75,8.18971480403491,3,KEEP (High Confidence)
+Deviation_Percentage,4,5,8,4,4,11,11,5,6.5,3.070597894314954,4,KEEP (High Confidence)
+Requires_Human_Review,8,4,33,5,7,1,2,4,8.0,10.36477551269546,5,KEEP (High Confidence)
+Region,9,8,3,17,12,8,8,6,8.875,4.155461122770509,6,KEEP
+Data_Source_System,12,7,11,13,8,7,7,7,9.0,2.5634797778466227,7,KEEP
+Query_Complexity_Score,5,6,7,10,14,11,11,9,9.125,2.997022331772464,8,KEEP
+Business_Unit,13,9,6,8,9,9,9,15,9.75,2.866057521105554,9,KEEP
+Query_Type,6,10,18,16,10,5,5,11,10.125,4.882549100038393,10,KEEP
+Priority_Level,14,13,4,11,18,4,4,14,10.25,5.522680508593631,11,KEEP
+Revenue_Impact_USD,17,14,5,9,5,11,11,10,10.25,4.0970372570571385,12,KEEP
+Assigned_Agent,10,15,10,12,16,6,6,12,10.875,3.6815175442433286,13,KEEP
+Customer_Segment,7,12,31,15,13,2,2,8,11.25,9.315885051121782,14,KEEP
+KPI_Target_Value,16,16,9,6,6,11,11,27,12.75,6.923046397979103,15,KEEP

@@ -1,0 +1,5 @@
+Feature Name,Overall Business Score,Classification,Business Group,Business Reason,Expected Business Impact,Business Owner,Used By,Executive Value,Dashboard Value,AI-Agent Value
+Query_Type,6.6,KEEP (AI Critical),AI,Powers AI capabilities,Agent efficiency and automation,ML Engineering,Enterprise Dashboards/Agents,Medium,Medium,High
+Input_Tokens,6.6,KEEP (AI Critical),AI,Powers AI capabilities,Agent efficiency and automation,ML Engineering,Enterprise Dashboards/Agents,Medium,Medium,High
+Output_Tokens,6.6,KEEP (AI Critical),AI,Powers AI capabilities,Agent efficiency and automation,ML Engineering,Enterprise Dashboards/Agents,Medium,Medium,High
+Tokens_Per_Second,6.6,KEEP (AI Critical),AI,Powers AI capabilities,Agent efficiency and automation,ML Engineering,Enterprise Dashboards/Agents,Medium,Medium,High

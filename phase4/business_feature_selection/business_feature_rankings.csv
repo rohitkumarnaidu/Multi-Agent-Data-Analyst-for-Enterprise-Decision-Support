@@ -1,0 +1,45 @@
+Feature Name,Overall Business Score,Classification,Business Group,Business Reason,Expected Business Impact,Business Owner,Used By,Executive Value,Dashboard Value,AI-Agent Value
+Department,4.1,REVIEW,Operations,Provides context,General insights,Data Team,Enterprise Dashboards/Agents,Low,Medium,Low
+Business_Unit,4.1,REVIEW,Operations,Provides context,General insights,Data Team,Enterprise Dashboards/Agents,Low,Medium,Low
+Region,4.1,REVIEW,Operations,Provides context,General insights,Data Team,Enterprise Dashboards/Agents,Low,Medium,Low
+Data_Source_System,4.1,REVIEW,General,Provides context,General insights,Data Team,Enterprise Dashboards/Agents,Low,Medium,Low
+Assigned_Agent,4.1,REVIEW,Operations,Provides context,General insights,Data Team,Enterprise Dashboards/Agents,Low,Medium,Low
+Query_Type,6.6,KEEP (AI Critical),AI,Powers AI capabilities,Agent efficiency and automation,ML Engineering,Enterprise Dashboards/Agents,Medium,Medium,High
+Num_Agents_Involved,4.1,REVIEW,Operations,Provides context,General insights,Data Team,Enterprise Dashboards/Agents,Low,Medium,Low
+Query_Complexity_Score,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+Input_Tokens,6.6,KEEP (AI Critical),AI,Powers AI capabilities,Agent efficiency and automation,ML Engineering,Enterprise Dashboards/Agents,Medium,Medium,High
+Output_Tokens,6.6,KEEP (AI Critical),AI,Powers AI capabilities,Agent efficiency and automation,ML Engineering,Enterprise Dashboards/Agents,Medium,Medium,High
+Processing_Time_Sec,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+KPI_Metric_Name,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+KPI_Current_Value,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+KPI_Target_Value,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+Deviation_Percentage,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+Transaction_Amount_USD,9.0,KEEP (Business Critical),Finance,Directly informs downstream actions,Direct bottom-line tracking,CFO / Finance,Enterprise Dashboards/Agents,High,High,Low
+Revenue_Impact_USD,8.4,KEEP (Business Critical),Finance,Measures financial impact,Direct bottom-line tracking,CFO / Finance,Enterprise Dashboards/Agents,High,High,Low
+Cost_Savings_Potential_USD,8.4,KEEP (Business Critical),Finance,Measures financial impact,Direct bottom-line tracking,CFO / Finance,Enterprise Dashboards/Agents,High,High,Low
+Anomaly_Score,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+Confidence_Score,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+Data_Quality_Score,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+Root_Cause_Category,4.1,REVIEW,General,Provides context,General insights,Data Team,Enterprise Dashboards/Agents,Low,Medium,Low
+Recommended_Action,5.0,OPTIONAL,General,Directly informs downstream actions,General insights,Data Team,Enterprise Dashboards/Agents,Low,Medium,Low
+Priority_Level,4.1,REVIEW,General,Provides context,General insights,Data Team,Enterprise Dashboards/Agents,Low,Medium,Low
+Risk_Level,6.5,OPTIONAL,Risk,Mitigates operational risk,Early warning for anomalies,Risk / Compliance,Enterprise Dashboards/Agents,Medium,High,Low
+Escalation_Level,6.5,OPTIONAL,Risk,Mitigates operational risk,Early warning for anomalies,Risk / Compliance,Enterprise Dashboards/Agents,Medium,High,Low
+Decision_Outcome,5.0,OPTIONAL,General,Directly informs downstream actions,General insights,Data Team,Enterprise Dashboards/Agents,Low,Medium,Low
+SLA_Breached,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+Agent_Accuracy_Feedback,4.1,REVIEW,Operations,Provides context,General insights,Data Team,Enterprise Dashboards/Agents,Low,Medium,Low
+Employee_ID_Handler,4.1,REVIEW,Operations,Provides context,General insights,Data Team,Enterprise Dashboards/Agents,Low,Medium,Low
+Customer_Segment,7.1,KEEP (Dashboard Critical),Customer Service,Segment-specific insights,Customer satisfaction tracking,VP Customer Success,Enterprise Dashboards/Agents,High,High,Low
+Report_Summary_Text,4.1,REVIEW,General,Provides context,General insights,Data Team,Enterprise Dashboards/Agents,Low,Medium,Low
+Requires_Human_Review,4.1,REVIEW,General,Provides context,General insights,Data Team,Enterprise Dashboards/Agents,Low,Medium,Low
+Processing_Time_Sec_Is_Outlier,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+Transaction_Amount_USD_Is_Outlier,9.0,KEEP (Business Critical),Finance,Directly informs downstream actions,Direct bottom-line tracking,CFO / Finance,Enterprise Dashboards/Agents,High,High,Low
+Day_Of_Week,4.1,REVIEW,Temporal,Provides context,General insights,Data Team,Enterprise Dashboards/Agents,Low,Medium,Low
+Is_Weekend,4.1,REVIEW,Temporal,Provides context,General insights,Data Team,Enterprise Dashboards/Agents,Low,Medium,Low
+Total_Margin_USD,8.4,KEEP (Business Critical),Finance,Measures financial impact,Direct bottom-line tracking,CFO / Finance,Enterprise Dashboards/Agents,High,High,Low
+Tokens_Per_Second,6.6,KEEP (AI Critical),AI,Powers AI capabilities,Agent efficiency and automation,ML Engineering,Enterprise Dashboards/Agents,Medium,Medium,High
+Complexity_Per_Agent,4.1,REVIEW,Operations,Provides context,General insights,Data Team,Enterprise Dashboards/Agents,Low,Medium,Low
+Rolling_7_Txn_Avg_Amount_By_Dept,8.4,KEEP (Business Critical),Finance,Measures financial impact,Direct bottom-line tracking,CFO / Finance,Enterprise Dashboards/Agents,High,High,Low
+Prev_Txn_Amount_By_Dept,8.4,KEEP (Business Critical),Finance,Measures financial impact,Direct bottom-line tracking,CFO / Finance,Enterprise Dashboards/Agents,High,High,Low
+PoP_Amount_Change_Pct,8.4,KEEP (Business Critical),Finance,Measures financial impact,Direct bottom-line tracking,CFO / Finance,Enterprise Dashboards/Agents,High,High,Low
+Rank_Amount_Within_Dept,8.4,KEEP (Business Critical),Finance,Measures financial impact,Direct bottom-line tracking,CFO / Finance,Enterprise Dashboards/Agents,High,High,Low

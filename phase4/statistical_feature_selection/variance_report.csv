@@ -1,0 +1,23 @@
+Feature,Variance,Near Zero Variance
+Num_Agents_Involved,1.557964096650604,No
+Query_Complexity_Score,0.04825388981852133,No
+Input_Tokens,45107.12701303754,No
+Output_Tokens,20046.71578644238,No
+Processing_Time_Sec,8.474812018784403,No
+KPI_Current_Value,14180.949739048343,No
+KPI_Target_Value,13933.24571554633,No
+Deviation_Percentage,126.9010272560997,No
+Transaction_Amount_USD,2443951592.3049016,No
+Revenue_Impact_USD,17517969.48009842,No
+Cost_Savings_Potential_USD,1027764.1745426435,No
+Anomaly_Score,0.014564384207165007,No
+Confidence_Score,0.01252131782027997,No
+Data_Quality_Score,0.014531857763011025,No
+Agent_Accuracy_Feedback,0.02093269950535172,No
+Total_Margin_USD,18122936.092129745,No
+Tokens_Per_Second,2548.896559677229,No
+Complexity_Per_Agent,0.0031658992483749966,Yes
+Rolling_7_Txn_Avg_Amount_By_Dept,350529281.2431167,No
+Prev_Txn_Amount_By_Dept,2451980735.841471,No
+PoP_Amount_Change_Pct,757.4748435618106,No
+Rank_Amount_Within_Dept,132779353.26232834,No

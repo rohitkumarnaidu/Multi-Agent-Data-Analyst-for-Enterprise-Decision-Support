@@ -1,0 +1,11 @@
+LIME Feature Condition,Weight
+low_card__Risk_Level_High <= 0.00,-0.11605068992967983
+low_card__Escalation_Level_High <= 0.00,-0.02361258425553366
+remainder__Outlier_Output_Tokens <= 0.00,-0.017759252939641087
+remainder__Outlier_Processing_Time_Sec <= 0.00,-0.012469869777535392
+low_card__Escalation_Level_Medium <= 0.00,-0.011513733552198358
+low_card__Assigned_Agent_HR_Agent <= 0.00,-0.004621853613891839
+low_card__Query_Type_Inventory Optimization <= 0.00,-0.0042251132921722325
+0.00 < low_card__Escalation_Level_Not_Escalated <= 1.00,-0.0037076024969781977
+remainder__Outlier_Input_Tokens <= 0.00,0.0036948626394391324
+low_card__Region_Unknown <= 0.00,-0.002988054554124943

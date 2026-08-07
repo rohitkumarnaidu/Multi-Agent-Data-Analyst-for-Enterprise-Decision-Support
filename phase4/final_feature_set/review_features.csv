@@ -1,0 +1,5 @@
+Feature Name,Stat Rank,Overall Statistical Score,Stat Flag,Business Rank,Executive Value,AI-Agent Value,Overall Business Score,Bus Flag,Model Rank,SHAP Rank,Explainability Rank,Enterprise Consensus Score,Final Enterprise Rank,Final Classification
+Decision_Outcome,12.0,6.4,KEEP,28.0,Low,Low,5.0,OPTIONAL,31,30,31,101.0,35,REVIEW
+Report_Summary_Text,12.0,6.4,KEEP,30.0,Low,Low,4.1,REVIEW,33,33,33,108.0,37,REVIEW
+Num_Agents_Involved,36.0,4.3,REDUNDANT,30.0,Low,Low,4.1,REVIEW,27,20,23,113.0,38,REVIEW
+Is_Weekend,12.0,6.4,KEEP,30.0,Low,Low,4.1,REVIEW,36,37,37,115.0,39,REVIEW

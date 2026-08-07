@@ -1,0 +1,26 @@
+Feature Name,Overall Business Score,Classification,Business Group,Business Reason,Expected Business Impact,Business Owner,Used By,Executive Value,Dashboard Value,AI-Agent Value
+Query_Type,6.6,KEEP (AI Critical),AI,Powers AI capabilities,Agent efficiency and automation,ML Engineering,Enterprise Dashboards/Agents,Medium,Medium,High
+Query_Complexity_Score,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+Input_Tokens,6.6,KEEP (AI Critical),AI,Powers AI capabilities,Agent efficiency and automation,ML Engineering,Enterprise Dashboards/Agents,Medium,Medium,High
+Output_Tokens,6.6,KEEP (AI Critical),AI,Powers AI capabilities,Agent efficiency and automation,ML Engineering,Enterprise Dashboards/Agents,Medium,Medium,High
+Processing_Time_Sec,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+KPI_Metric_Name,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+KPI_Current_Value,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+KPI_Target_Value,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+Deviation_Percentage,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+Transaction_Amount_USD,9.0,KEEP (Business Critical),Finance,Directly informs downstream actions,Direct bottom-line tracking,CFO / Finance,Enterprise Dashboards/Agents,High,High,Low
+Revenue_Impact_USD,8.4,KEEP (Business Critical),Finance,Measures financial impact,Direct bottom-line tracking,CFO / Finance,Enterprise Dashboards/Agents,High,High,Low
+Cost_Savings_Potential_USD,8.4,KEEP (Business Critical),Finance,Measures financial impact,Direct bottom-line tracking,CFO / Finance,Enterprise Dashboards/Agents,High,High,Low
+Anomaly_Score,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+Confidence_Score,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+Data_Quality_Score,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+SLA_Breached,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+Customer_Segment,7.1,KEEP (Dashboard Critical),Customer Service,Segment-specific insights,Customer satisfaction tracking,VP Customer Success,Enterprise Dashboards/Agents,High,High,Low
+Processing_Time_Sec_Is_Outlier,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+Transaction_Amount_USD_Is_Outlier,9.0,KEEP (Business Critical),Finance,Directly informs downstream actions,Direct bottom-line tracking,CFO / Finance,Enterprise Dashboards/Agents,High,High,Low
+Total_Margin_USD,8.4,KEEP (Business Critical),Finance,Measures financial impact,Direct bottom-line tracking,CFO / Finance,Enterprise Dashboards/Agents,High,High,Low
+Tokens_Per_Second,6.6,KEEP (AI Critical),AI,Powers AI capabilities,Agent efficiency and automation,ML Engineering,Enterprise Dashboards/Agents,Medium,Medium,High
+Rolling_7_Txn_Avg_Amount_By_Dept,8.4,KEEP (Business Critical),Finance,Measures financial impact,Direct bottom-line tracking,CFO / Finance,Enterprise Dashboards/Agents,High,High,Low
+Prev_Txn_Amount_By_Dept,8.4,KEEP (Business Critical),Finance,Measures financial impact,Direct bottom-line tracking,CFO / Finance,Enterprise Dashboards/Agents,High,High,Low
+PoP_Amount_Change_Pct,8.4,KEEP (Business Critical),Finance,Measures financial impact,Direct bottom-line tracking,CFO / Finance,Enterprise Dashboards/Agents,High,High,Low
+Rank_Amount_Within_Dept,8.4,KEEP (Business Critical),Finance,Measures financial impact,Direct bottom-line tracking,CFO / Finance,Enterprise Dashboards/Agents,High,High,Low

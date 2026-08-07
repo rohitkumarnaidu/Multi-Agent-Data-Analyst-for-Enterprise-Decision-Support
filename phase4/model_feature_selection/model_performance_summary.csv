@@ -1,0 +1,6 @@
+Model,Execution Time (s),Feature Count
+Random Forest,0.05,44
+Extra Trees,0.04,44
+XGBoost,1.78,44
+LightGBM,0.08,44
+CatBoost,0.07,44

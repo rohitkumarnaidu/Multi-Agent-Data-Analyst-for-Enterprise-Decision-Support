@@ -1,0 +1,45 @@
+Feature Name,Final Classification,Enterprise Consensus Score,Stat Rank,Business Rank,Model Rank,SHAP Rank
+Deviation_Percentage,KEEP (Executive KPI),30.0,12.0,10.0,4,4
+Transaction_Amount_USD,KEEP (Executive KPI),38.0,2.0,1.0,16,19
+Risk_Level,KEEP (Production),42.0,12.0,26.0,2,2
+Requires_Human_Review,KEEP (Production),46.0,1.0,30.0,5,10
+Escalation_Level,KEEP (Production),48.0,12.0,26.0,3,7
+Revenue_Impact_USD,KEEP (Executive KPI),48.0,28.0,3.0,12,5
+Anomaly_Score,KEEP (Executive KPI),52.0,40.0,10.0,1,1
+Business_Unit,KEEP (Production),54.0,12.0,30.0,9,3
+Data_Source_System,KEEP (Production),57.0,12.0,30.0,7,8
+Query_Complexity_Score,KEEP (Executive KPI),58.0,31.0,10.0,8,9
+Query_Type,KEEP (AI Critical),59.0,12.0,22.0,10,15
+KPI_Metric_Name,KEEP (Executive KPI),60.0,8.0,10.0,21,21
+Region,KEEP (Production),61.0,12.0,30.0,6,13
+Cost_Savings_Potential_USD,KEEP (Executive KPI),61.0,28.0,3.0,18,12
+KPI_Target_Value,KEEP (Executive KPI),62.0,31.0,10.0,15,6
+Assigned_Agent,KEEP (Production),66.0,12.0,30.0,13,11
+Priority_Level,KEEP (Production),69.0,12.0,30.0,11,16
+SLA_Breached,KEEP (Executive KPI),72.0,8.0,10.0,25,29
+Transaction_Amount_USD_Is_Outlier,KEEP (Executive KPI),73.0,2.0,1.0,35,35
+Department,KEEP (Production),73.0,12.0,30.0,17,14
+Confidence_Score,KEEP (Executive KPI),74.0,8.0,10.0,29,27
+Processing_Time_Sec,KEEP (Executive KPI),83.0,31.0,10.0,20,22
+Processing_Time_Sec_Is_Outlier,KEEP (Executive KPI),86.0,8.0,10.0,34,34
+Rolling_7_Txn_Avg_Amount_By_Dept,KEEP (Executive KPI),87.0,2.0,3.0,41,41
+Recommended_Action,KEEP (Production),88.0,12.0,28.0,23,25
+Prev_Txn_Amount_By_Dept,KEEP (Executive KPI),89.0,2.0,3.0,42,42
+PoP_Amount_Change_Pct,KEEP (Executive KPI),91.0,2.0,3.0,43,43
+Root_Cause_Category,KEEP (Production),92.0,12.0,30.0,24,26
+Customer_Segment,KEEP (Executive KPI),93.0,41.0,21.0,14,17
+Rank_Amount_Within_Dept,KEEP (Executive KPI),93.0,2.0,3.0,44,44
+KPI_Current_Value,KEEP (Executive KPI),93.0,31.0,10.0,28,24
+Output_Tokens,KEEP (AI Critical),98.0,36.0,22.0,22,18
+Data_Quality_Score,KEEP (Executive KPI),99.0,31.0,10.0,30,28
+Input_Tokens,KEEP (AI Critical),100.0,36.0,22.0,19,23
+Decision_Outcome,REVIEW,101.0,12.0,28.0,31,30
+Total_Margin_USD,KEEP (Executive KPI),107.0,28.0,3.0,38,38
+Report_Summary_Text,REVIEW,108.0,12.0,30.0,33,33
+Num_Agents_Involved,REVIEW,113.0,36.0,30.0,27,20
+Is_Weekend,REVIEW,115.0,12.0,30.0,36,37
+Day_Of_Week,REMOVE,115.0,12.0,30.0,37,36
+Employee_ID_Handler,REMOVE,128.0,41.0,30.0,26,31
+Agent_Accuracy_Feedback,REMOVE,135.0,41.0,30.0,32,32
+Tokens_Per_Second,REMOVE,136.0,36.0,22.0,39,39
+Complexity_Per_Agent,REMOVE,151.0,41.0,30.0,40,40

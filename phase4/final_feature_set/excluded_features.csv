@@ -1,0 +1,6 @@
+Feature Name,Stat Rank,Overall Statistical Score,Stat Flag,Business Rank,Executive Value,AI-Agent Value,Overall Business Score,Bus Flag,Model Rank,SHAP Rank,Explainability Rank,Enterprise Consensus Score,Final Enterprise Rank,Final Classification
+Day_Of_Week,12.0,6.4,KEEP,30.0,Low,Low,4.1,REVIEW,37,36,36,115.0,40,REMOVE
+Employee_ID_Handler,41.0,2.2,REVIEW,30.0,Low,Low,4.1,REVIEW,26,31,29,128.0,41,REMOVE
+Agent_Accuracy_Feedback,41.0,2.2,REDUNDANT,30.0,Low,Low,4.1,REVIEW,32,32,32,135.0,42,REMOVE
+Tokens_Per_Second,36.0,4.3,REDUNDANT,22.0,Medium,High,6.6,KEEP (AI Critical),39,39,39,136.0,43,REMOVE
+Complexity_Per_Agent,41.0,2.2,LOW VALUE,30.0,Low,Low,4.1,REVIEW,40,40,40,151.0,44,REMOVE

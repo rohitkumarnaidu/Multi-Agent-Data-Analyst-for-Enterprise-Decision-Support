@@ -1,0 +1,12 @@
+Feature Name,Overall Business Score,Classification,Business Group,Business Reason,Expected Business Impact,Business Owner,Used By,Executive Value,Dashboard Value,AI-Agent Value
+Query_Complexity_Score,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+Processing_Time_Sec,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+KPI_Metric_Name,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+KPI_Current_Value,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+KPI_Target_Value,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+Deviation_Percentage,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+Anomaly_Score,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+Confidence_Score,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+Data_Quality_Score,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+SLA_Breached,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
+Processing_Time_Sec_Is_Outlier,7.5,KEEP (Executive KPI),Performance,Core operational metric,SLA tracking and performance management,Operations Lead,Enterprise Dashboards/Agents,High,High,Low
