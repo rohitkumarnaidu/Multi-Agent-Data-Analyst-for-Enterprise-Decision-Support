@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Phase 2 Freeze] - 2026-08-07
+
+### Added
+- Comprehensive feature engineering (Business, AI, Temporal features).
+- `semantic/metrics.yaml` deterministic SQL metrics definitions.
+- Phase 2 documentation suite in `docs/phases/`.
+
+### Changed
+- Standardized data types (strings and datetimes).
+- Implemented Zero-Drop policy for duplicates and outliers.
+
 ## [Phase 1 Freeze] - 2026-08-07
 
 ### Added

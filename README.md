@@ -142,7 +142,8 @@ Target: ≥ 21/23 pass rate, 100% on safety tests.
 
 ## 📈 Project Status
 
-✅ **Phase 1 Completed:** Data Preparation & Preprocessing. 
+✅ **Phase 1 Completed:** Data Preparation & Preprocessing.
+✅ **Phase 2 Completed:** Data & Feature Engineering. 
 *See [Documentation Index](docs/DOCUMENTATION_INDEX.md) for full audit reports and architectural decisions.*
 
 ---

@@ -3,7 +3,12 @@
 ## Overview
 The architecture is designed to orchestrate natural language queries into accurate, data-backed insights without LLM hallucinations, ensuring all metric computation runs deterministically.
 
-## 1. Preprocessing Pipeline (Phase 1)
+## 1a. Feature Engineering & Semantic Layer (Phase 2)
+- Transforms raw dataset into `master_cleaned_dataset.parquet`.
+- Applies Zero-Drop policies.
+- Defines deterministic aggregation metrics via `semantic/metrics.yaml`.
+
+## 1b. Preprocessing Pipeline (Phase 1)
 A robust `sklearn.pipeline.Pipeline` orchestrates the raw data conversion into a purely numeric matrix suitable for the ML engine.
 - **Components:** `ColumnDropper` -> `SimpleImputer` -> `RobustScaler` / `TargetEncoder` / `OneHotEncoder` / `OrdinalEncoder`
 

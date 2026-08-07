@@ -17,6 +17,7 @@ env/
 data/raw/*.csv
 data/cleaned_*.csv
 data/*.csv
+data/*.parquet
 !data/raw/.gitkeep
 
 # ── ChromaDB (vector store) ──
