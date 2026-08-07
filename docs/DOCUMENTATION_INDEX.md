@@ -10,6 +10,17 @@ Welcome to the central repository documentation map.
 - [ARCHITECTURE.md](../ARCHITECTURE.md) - High-level system architecture.
 - [IMPLEMENTATION.md](../IMPLEMENTATION.md) - Low-level engineering implementation details.
 
+## Phase 3: Exploratory Data Analysis
+- [EDA Report](../eda/EDA_Report.md)
+- [EDA Coverage Report](../eda/EDA_Coverage_Report.md)
+- [Visualization Validation](../eda/Visualization_Validation_Report.md)
+- [Traceability Matrix](../eda/Traceability_Matrix.md)
+- [Statistical Test Report](../eda/Statistical_Test_Report.md)
+- [EDA Completion Report](../eda/EDA_Completion_Report.md)
+- [Phase 3 Audit Report](../eda/Phase3_Audit_Report.md)
+- [Phase 3 Certification](../reports/Phase3_Certification.md)
+- [Phase 3 Freeze Report](../reports/Phase3_Freeze_Report.md)
+
 ## Phase 1: Data Preparation Freeze Documents
 - [Phase 1: Data Preparation & Preprocessing](phases/Phase-01-Data-Preparation.md) - The master phase document.
 - [Phase 1: Executive Summary](phases/Phase-01-Summary.md)

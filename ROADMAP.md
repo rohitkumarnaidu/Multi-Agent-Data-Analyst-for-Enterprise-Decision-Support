@@ -12,8 +12,14 @@
 - Evaluate on `validation.csv` and `test.csv`.
 - Export champion `.joblib` model for inference.
 
-## 🔜 Phase 3: LangGraph Multi-Agent Architecture
-- Design 8-node specialized agent network.
+## ✅ Phase 3: Exploratory Data Analysis (Completed)
+- Rendered exhaustive visualizations (Histograms, Pairplots, Boxplots) via Pandas/Seaborn.
+- Programmatically computed non-parametric tests (Kruskal-Wallis, Mann-Whitney).
+- Extracted business insights through Mutual Information scoring and Temporal Aggregation.
+- Generated comprehensive Verification Audit documentation suite.
+
+## ⏳ Phase 4: Feature Selection (Next)
+- Target encoding of categoricals.
 - Implement intent classification and SQL-to-NL capabilities.
 - Integrate RAG (ChromaDB + BM25).
 

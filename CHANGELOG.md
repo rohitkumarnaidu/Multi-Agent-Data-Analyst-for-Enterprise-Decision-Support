@@ -2,9 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Phase 2 Freeze] - 2026-08-07
+## [Phase 3 Freeze] - 2026-08-07
 
 ### Added
+- Complete programmatic EDA pipeline (`scripts/computational_eda.py`, `scripts/computational_eda_completion.py`).
+- 22 numerical histograms, boxplots, and qq-plots, alongside 18 categorical count plots.
+- Correlation matrices, scatter matrices, pair plots, and temporal trend analyses.
+- Automated generation of CSV statistics (Count, IQR, Skewness, Mutual Information).
+- Phase 3 Audit & Freeze documentation suite in `reports/` and `eda/`.
+
+## [Phase 2 Freeze] - 2026-08-07
 - Comprehensive feature engineering (Business, AI, Temporal features).
 - `semantic/metrics.yaml` deterministic SQL metrics definitions.
 - Phase 2 documentation suite in `docs/phases/`.
