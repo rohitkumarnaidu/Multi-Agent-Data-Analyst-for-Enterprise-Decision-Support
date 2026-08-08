@@ -1,0 +1,4 @@
+# Ignore large generated HTML files from GitHub language statistics
+phase4/explainability/visualizations/*.html linguist-generated=true
+docs/**/*.html linguist-generated=true
+docs_backup/**/*.html linguist-generated=true
