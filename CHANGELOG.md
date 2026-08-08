@@ -1,3 +1,10 @@
+## [0.6.1] - 2026-08-08
+### Added
+- Phase 6F Frontend Verification, Audit, Certification, and Freeze.
+- Final removal of all mock data and unified dynamic frontend architecture.
+- Full multi-agent backend API integration (Axios + TanStack Query).
+- Four core enterprise UI modules: Dashboard, AI Workspace, Knowledge Base, Reports.
+
 ## [0.6.0] - 2026-08-08
 ### Added
 - Master Backend Certification and Freeze.
