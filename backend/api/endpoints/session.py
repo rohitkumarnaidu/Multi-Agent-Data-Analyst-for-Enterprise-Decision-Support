@@ -17,7 +17,7 @@ async def get_history(session_id: str, current_user: dict = Depends(get_current_
     logger.info("Retrieving session history", session_id=session_id)
     session = store.get_session(session_id)
     if not session:
-        raise HTTPException(status_code=404, detail="Session not found")
+        return {"session_id": session_id, "messages": []}
     return session
 
 @router.post("/{session_id}/feedback")

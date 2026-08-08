@@ -50,14 +50,19 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ role, content, res
     low_sample_size, is_degraded, is_out_of_scope
   } = response;
 
-  const getConfidenceColor = (level: string) => {
-    switch (level.toUpperCase()) {
+  const getConfidenceColor = (level?: string) => {
+    const safeLevel = level ? String(level).toUpperCase() : '';
+    switch (safeLevel) {
       case 'HIGH': return 'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-800';
       case 'MEDIUM': return 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/30 border-amber-200 dark:border-amber-800';
       case 'LOW': return 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-800';
       default: return 'text-gray-600 bg-gray-50 border-gray-200';
     }
   };
+
+  const safeConfidenceLabel = confidence_label ? String(confidence_label) : 'UNKNOWN';
+  const safeConfidence = confidence || 0;
+  const upperLabel = safeConfidenceLabel.toUpperCase();
 
   return (
     <div className="flex w-full justify-start mb-8">
@@ -66,11 +71,11 @@ export const MessageBubble: React.FC<MessageBubbleProps> = ({ role, content, res
         {/* Header Badges */}
         <div className="flex flex-wrap items-center gap-2 mb-4">
           {/* Confidence Badge */}
-          <div className={clsx("flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-semibold", getConfidenceColor(confidence_label))}>
-            {confidence_label.toUpperCase() === 'HIGH' && <CheckCircle className="w-3.5 h-3.5" />}
-            {confidence_label.toUpperCase() === 'MEDIUM' && <AlertTriangle className="w-3.5 h-3.5" />}
-            {confidence_label.toUpperCase() === 'LOW' && <ShieldAlert className="w-3.5 h-3.5" />}
-            <span>{confidence_label} Confidence ({(confidence * 100).toFixed(0)}%)</span>
+          <div className={clsx("flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-xs font-semibold", getConfidenceColor(safeConfidenceLabel))}>
+            {upperLabel === 'HIGH' && <CheckCircle className="w-3.5 h-3.5" />}
+            {upperLabel === 'MEDIUM' && <AlertTriangle className="w-3.5 h-3.5" />}
+            {upperLabel === 'LOW' && <ShieldAlert className="w-3.5 h-3.5" />}
+            <span>{safeConfidenceLabel} Confidence ({(safeConfidence * 100).toFixed(0)}%)</span>
           </div>
           
           {/* Flags */}

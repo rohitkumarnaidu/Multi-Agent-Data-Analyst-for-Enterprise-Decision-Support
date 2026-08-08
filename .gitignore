@@ -52,3 +52,7 @@ catboost_info/
 *.db
 *.db-shm
 *.db-wal
+
+# ── Project Specific ──
+venv312/
+.knowledge_files/

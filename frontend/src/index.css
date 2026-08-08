@@ -110,3 +110,19 @@
 .react-flow__edge-path {
   stroke-width: 1.5;
 }
+
+.react-flow__controls {
+  @apply border border-slate-200 dark:border-slate-700 shadow-sm rounded-md overflow-hidden bg-white dark:bg-slate-900;
+}
+
+.react-flow__controls-button {
+  @apply bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors;
+}
+
+.react-flow__controls-button:last-child {
+  @apply border-b-0;
+}
+
+.react-flow__controls-button svg {
+  @apply fill-slate-700 dark:fill-slate-300;
+}

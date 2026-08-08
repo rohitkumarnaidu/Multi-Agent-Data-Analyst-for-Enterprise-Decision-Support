@@ -1,6 +1,17 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { apiClient } from '@/api/client';
 import { ChatResponse, ChatRequest } from '@/types/chat';
+
+export const useSessionHistory = (sessionId: string) => {
+  return useQuery({
+    queryKey: ['session-history', sessionId],
+    queryFn: async () => {
+      const response = await apiClient.get(`/session/${sessionId}/history`);
+      return response.data;
+    },
+    enabled: !!sessionId,
+  });
+};
 
 const sendChatRequest = async (
   endpoint: '/chat' | '/ask' | '/simulate' | '/report' | '/anomaly',

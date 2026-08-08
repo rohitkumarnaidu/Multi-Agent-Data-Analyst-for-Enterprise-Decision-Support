@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Sparkles } from 'lucide-react';
-import { useChatMutation } from '@/features/chat/api/chatApi';
+import { useChatMutation, useSessionHistory } from '@/features/chat/api/chatApi';
 import { MessageBubble } from './MessageBubble';
 import { AskResponse, ChatRequest } from '@/types/chat';
 
@@ -11,38 +11,63 @@ interface Message {
   response?: AskResponse;
 }
 
-export const ChatInterface: React.FC = () => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 'welcome',
-      role: 'assistant',
-      response: {
-        answer: 'Welcome to Datasphere Enterprise AI. How can I assist you with your data today?',
-        confidence: 1.0,
-        confidence_label: 'HIGH',
-        confidence_reason: 'System initialization',
-        trace: [],
-        approval_required: false,
-        low_sample_size: false,
-        is_out_of_scope: false,
-        is_degraded: false,
-        metadata: {
-          records_analyzed: 0,
-          processing_time_sec: 0,
-          agents_invoked: [],
-          steps_taken: 0,
-          llm_provider: 'system',
-          model_used: 'system'
-        },
-        timestamp: new Date().toISOString(),
-        reference_date: new Date().toISOString().split('T')[0]
-      }
-    }
-  ]);
+interface ChatInterfaceProps {
+  onLatestResponse?: (response: AskResponse) => void;
+  sessionId?: string;
+}
+
+const DEFAULT_WELCOME_MSG: Message = {
+  id: 'welcome',
+  role: 'assistant',
+  response: {
+    answer: 'Welcome to Datasphere Enterprise AI. How can I assist you with your data today?',
+    confidence: 1.0,
+    confidence_label: 'HIGH',
+    confidence_reason: 'System initialization',
+    trace: [],
+    approval_required: false,
+    low_sample_size: false,
+    is_out_of_scope: false,
+    is_degraded: false,
+    metadata: {
+      records_analyzed: 0,
+      processing_time_sec: 0,
+      agents_invoked: [],
+      steps_taken: 0,
+      llm_provider: 'system',
+      model_used: 'system'
+    },
+    timestamp: new Date().toISOString(),
+    reference_date: new Date().toISOString().split('T')[0]
+  }
+};
+
+export const ChatInterface: React.FC<ChatInterfaceProps> = ({ onLatestResponse, sessionId = 'default-session' }) => {
+  const [messages, setMessages] = useState<Message[]>([DEFAULT_WELCOME_MSG]);
   const [input, setInput] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
   const chatMutation = useChatMutation();
+  const { data: history } = useSessionHistory(sessionId);
+
+  useEffect(() => {
+    if (history?.messages && history.messages.length > 0) {
+      // Assuming backend history has similar shape or mapping is needed.
+      // We will map them to our UI Message type.
+      const mappedMessages = history.messages.map((m: any, i: number) => ({
+        id: `hist-${i}`,
+        role: m.role,
+        content: m.content,
+        // Since we are mocking response structure for user messages, 
+        // we might not have 'response' object for assistant if it's plain text, 
+        // but for now let's just populate content.
+        response: m.role === 'assistant' ? m.response || { answer: m.content } : undefined,
+      }));
+      setMessages(mappedMessages);
+    } else {
+      setMessages([DEFAULT_WELCOME_MSG]);
+    }
+  }, [history, sessionId]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -71,7 +96,7 @@ export const ChatInterface: React.FC = () => {
     const request: ChatRequest = {
       query,
       intent: 'data', // Default intent
-      session_id: 'default-session' // Normally from context/url
+      session_id: sessionId 
     };
 
     chatMutation.mutate(request, {
@@ -82,6 +107,7 @@ export const ChatInterface: React.FC = () => {
           response: data.response
         };
         setMessages(prev => [...prev, assistantMsg]);
+        onLatestResponse?.(data.response);
       },
       onError: (error) => {
         const errorMsg: Message = {
@@ -130,7 +156,7 @@ export const ChatInterface: React.FC = () => {
       </div>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto p-6 scroll-smooth">
+      <div className="flex-1 overflow-y-auto p-4 md:p-6 scroll-smooth">
         <div className="max-w-4xl mx-auto">
           {messages.map(msg => (
             <MessageBubble 

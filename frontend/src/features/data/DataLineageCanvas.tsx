@@ -167,7 +167,7 @@ export const DataLineageCanvas: React.FC<DataLineageCanvasProps> = ({ lineage })
         maxZoom={1.5}
       >
         <Background variant={BackgroundVariant.Dots} gap={24} size={1} color="#1E293B" />
-        <Controls className="!bg-slate-900 !border-slate-700 !fill-slate-300" showInteractive={false} />
+        <Controls showInteractive={false} />
         <MiniMap
           nodeColor="#06B6D4"
           maskColor="rgba(11, 15, 25, 0.85)"

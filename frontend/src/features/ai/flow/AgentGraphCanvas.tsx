@@ -215,10 +215,7 @@ export const AgentGraphCanvas: React.FC<AgentGraphCanvasProps> = ({
         maxZoom={1.5}
       >
         <Background variant={BackgroundVariant.Dots} gap={20} size={1} color="#1E293B" />
-        <Controls
-          className="!bg-slate-900 !border-slate-700 !fill-slate-300"
-          showInteractive={false}
-        />
+        <Controls showInteractive={false} />
         <MiniMap
           nodeColor={n => {
             const status = (n.data as any)?.status

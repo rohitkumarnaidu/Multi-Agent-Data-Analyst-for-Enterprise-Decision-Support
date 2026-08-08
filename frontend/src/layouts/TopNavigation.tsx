@@ -9,6 +9,7 @@ import {
   Menu,
   Sparkles,
 } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { useTheme } from '@/shared/context/ThemeContext'
 import { useWorkspace } from '@/shared/context/WorkspaceContext'
 import { DropdownMenu } from '@/shared/ui/DropdownMenu'
@@ -30,6 +31,8 @@ export const TopNavigation: React.FC<TopNavigationProps> = ({ onToggleMobileSide
     workspaceName,
   } = useWorkspace()
 
+  const navigate = useNavigate()
+
   const roles: UserRole[] = [
     'Lead Data Scientist',
     'Executive',
@@ -37,6 +40,29 @@ export const TopNavigation: React.FC<TopNavigationProps> = ({ onToggleMobileSide
     'Risk Manager',
     'Operations Lead',
   ]
+
+  const handleRoleSwitch = (role: UserRole) => {
+    setUserRole(role)
+    switch (role) {
+      case 'Executive':
+        navigate('/workspace/dashboard')
+        break
+      case 'Risk Manager':
+        navigate('/workspace/domain/risk')
+        break
+      case 'Operations Lead':
+        navigate('/workspace/domain/operations')
+        break
+      case 'Compliance Officer':
+        navigate('/workspace/reports')
+        break
+      case 'Lead Data Scientist':
+        navigate('/workspace/ai')
+        break
+      default:
+        navigate('/workspace/dashboard')
+    }
+  }
 
   const userMenuItems = [
     {
@@ -48,7 +74,7 @@ export const TopNavigation: React.FC<TopNavigationProps> = ({ onToggleMobileSide
     ...roles.map(role => ({
       id: `role-${role}`,
       label: `Switch to ${role}`,
-      onClick: () => setUserRole(role),
+      onClick: () => handleRoleSwitch(role),
     })),
     { id: 'div-2', label: '', divider: true },
     {
@@ -63,7 +89,7 @@ export const TopNavigation: React.FC<TopNavigationProps> = ({ onToggleMobileSide
   return (
     <header className="sticky top-0 z-20 flex h-14 w-full items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 px-4 md:px-6 backdrop-blur-xs select-none">
       {/* Left: Mobile Toggle & Workspace Breadcrumb */}
-      <div className="flex items-center gap-3 flex-1 max-w-xl">
+      <div className="flex items-center gap-3 flex-1 min-w-0 max-w-xl">
         {/* Mobile Hamburger Trigger */}
         <button
           onClick={onToggleMobileSidebar}
@@ -81,7 +107,7 @@ export const TopNavigation: React.FC<TopNavigationProps> = ({ onToggleMobileSide
         {/* Global Command Palette Trigger */}
         <button
           onClick={() => setIsCommandPaletteOpen(true)}
-          className="flex h-8 w-full max-w-md items-center justify-between rounded-md border border-slate-200 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-800/60 px-2.5 text-xs text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600 transition-colors"
+          className="flex h-8 w-full max-w-md min-w-0 items-center justify-between rounded-md border border-slate-200 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-800/60 px-2.5 text-xs text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600 transition-colors"
         >
           <div className="flex items-center gap-2 truncate">
             <Search className="h-3.5 w-3.5 text-slate-400 shrink-0" />
@@ -94,13 +120,13 @@ export const TopNavigation: React.FC<TopNavigationProps> = ({ onToggleMobileSide
       </div>
 
       {/* Right: Telemetry pill, Approvals, Notifications, Theme, User */}
-      <div className="flex items-center gap-2.5">
-        {/* LLM Status Pill */}
+      <div className="flex items-center gap-2.5 shrink-0">
+        {/* AI Engine Status Pill */}
         <div className="hidden lg:flex items-center gap-1.5 rounded-md border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/40 px-2 py-1 text-[11px] text-slate-600 dark:text-slate-400 font-mono">
-          <Sparkles className="h-3 w-3 text-sky-600 dark:text-sky-400" />
-          <span>LLaMA-3.3-70B</span>
+          <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span>AI Engine</span>
           <span className="text-slate-300 dark:text-slate-700">|</span>
-          <span className="text-emerald-600 dark:text-emerald-400">99.4% SLA</span>
+          <span className="text-emerald-600 dark:text-emerald-400">Operational</span>
         </div>
 
         {/* Pending Approvals Button */}

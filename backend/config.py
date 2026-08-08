@@ -32,7 +32,7 @@ class Settings:
     CHROMA_PERSIST_DIR: Path = PROJECT_ROOT / os.getenv("CHROMA_PERSIST_DIR", ".chroma_db")
 
     # ── LLM Provider ──
-    DEFAULT_LLM_PROVIDER: str = os.getenv("DEFAULT_LLM_PROVIDER", "groq")
+    DEFAULT_LLM_PROVIDER: str = os.getenv("DEFAULT_LLM_PROVIDER", "ollama")
 
     # ── Groq (Cloud LLM) ──
     GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
@@ -116,7 +116,8 @@ def get_llm(provider: str = None, model: str = None, temperature: float = 0.1):
                 api_key=api_key,
                 model=model or settings.GROQ_MODEL,
                 temperature=temperature,
-                max_retries=2,
+                max_retries=0,
+                timeout=5.0,
             )
             print(f"[LLM] Tier 1 active: Groq ({settings.GROQ_MODEL})")
             return llm

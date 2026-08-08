@@ -1,32 +1,34 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard,
   Bot,
   BarChart3,
   Database,
   BookOpen,
-  Boxes,
-  PieChart,
-  Target,
+  Layers,
   BrainCircuit,
   Cpu,
   TrendingUp,
-  AlertOctagon,
   FileText,
   Activity,
-  Settings,
+  Server,
   ChevronLeft,
   ChevronRight,
-  ShieldCheck,
-  Server,
-  Layers,
-  Presentation,
-  ShieldAlert,
   X,
+  Users,
+  DollarSign,
+  ShieldAlert,
+  UserCheck,
+  Headphones,
+  Shield,
+  Sparkles,
 } from 'lucide-react'
 import { cn } from '@/shared/utils/cn'
 import { useWorkspace } from '@/shared/context/WorkspaceContext'
+import { useDatasetDiscovery } from '@/api/enterpriseApi'
+import { DropdownMenu } from '@/shared/ui/DropdownMenu'
+import type { UserRole } from '@/shared/types'
 
 interface NavItem {
   name: string
@@ -34,6 +36,7 @@ interface NavItem {
   icon: React.ElementType
   badge?: string | number
   badgeVariant?: 'default' | 'primary' | 'success' | 'warning' | 'destructive'
+  color?: string
 }
 
 interface NavSection {
@@ -41,24 +44,53 @@ interface NavSection {
   items: NavItem[]
 }
 
-const navSections: NavSection[] = [
+/* ─── Icon Map for dynamic domains ─── */
+const ICON_MAP: Record<string, React.ElementType> = {
+  Users,
+  TrendingUp,
+  DollarSign,
+  Activity,
+  ShieldAlert,
+  UserCheck,
+  BrainCircuit,
+  Headphones,
+  Shield,
+  BarChart3,
+}
+
+/* ─── Static Nav Sections ─── */
+const staticSections: NavSection[] = [
   {
-    title: 'Overview & Intelligence',
+    title: 'Business Intelligence',
     items: [
-      { name: 'Executive Dashboard', to: '/workspace/dashboard', icon: LayoutDashboard },
-      { name: 'AI Workspace', to: '/workspace/ai', icon: Bot, badge: 'ACTIVE', badgeVariant: 'primary' },
+      { name: 'Command Center', to: '/workspace/dashboard', icon: LayoutDashboard },
+      { name: 'Data Explorer', to: '/workspace/data-explorer', icon: Database },
+      { name: 'AI Analysis', to: '/workspace/ai', icon: Bot, badge: 'ACTIVE', badgeVariant: 'primary' },
+    ],
+  },
+]
+
+const operationsSections: NavSection[] = [
+  {
+    title: 'AI Operations',
+    items: [
+      { name: 'Agent Monitor', to: '/workspace/agents', icon: Cpu },
+      { name: 'Model Center', to: '/workspace/models', icon: BrainCircuit },
+      { name: 'Execution Monitor', to: '/workspace/execution', icon: Activity },
     ],
   },
   {
-    title: 'Enterprise Data',
+    title: 'Knowledge & Memory',
     items: [
-      { name: 'Knowledge Base', to: '/workspace/knowledge', icon: BookOpen },
+      { name: 'Knowledge Center', to: '/workspace/knowledge', icon: BookOpen },
+      { name: 'Memory Center', to: '/workspace/memory', icon: Layers },
     ],
   },
   {
     title: 'Administration',
     items: [
       { name: 'Enterprise Reports', to: '/workspace/reports', icon: FileText },
+      { name: 'System Monitor', to: '/workspace/system', icon: Server, badge: 'DEV', badgeVariant: 'destructive' },
     ],
   },
 ]
@@ -76,7 +108,78 @@ export const EnterpriseSidebar: React.FC<EnterpriseSidebarProps> = ({
   isMobileOpen = false,
   onMobileClose,
 }) => {
-  const { pendingApprovalsCount } = useWorkspace()
+  const { pendingApprovalsCount, user, setUserRole } = useWorkspace()
+  const { data: discovery } = useDatasetDiscovery()
+  const navigate = useNavigate()
+
+  const roles: UserRole[] = [
+    'Lead Data Scientist',
+    'Executive',
+    'Compliance Officer',
+    'Risk Manager',
+    'Operations Lead',
+  ]
+
+  const handleRoleSwitch = (role: UserRole) => {
+    setUserRole(role)
+    switch (role) {
+      case 'Executive':
+        navigate('/workspace/dashboard')
+        break
+      case 'Risk Manager':
+        navigate('/workspace/domain/risk')
+        break
+      case 'Operations Lead':
+        navigate('/workspace/domain/operations')
+        break
+      case 'Compliance Officer':
+        navigate('/workspace/reports')
+        break
+      case 'Lead Data Scientist':
+        navigate('/workspace/ai')
+        break
+      default:
+        navigate('/workspace/dashboard')
+    }
+    if (onMobileClose) onMobileClose()
+  }
+
+  const roleMenuItems = [
+    {
+      id: 'role-header',
+      label: `Active Role: ${user.role}`,
+      disabled: true,
+    },
+    { id: 'div-1', label: '', divider: true },
+    ...roles.map(role => ({
+      id: `role-${role}`,
+      label: `Switch to ${role}`,
+      onClick: () => handleRoleSwitch(role),
+    })),
+  ]
+
+  // Build dynamic domain section from discovered domains
+  const domainSection: NavSection | null =
+    discovery?.detected_domains && discovery.detected_domains.length > 0
+      ? {
+          title: 'Detected Domains',
+          items: discovery.detected_domains.map(domain => ({
+            name: domain.label,
+            to: `/workspace/domain/${domain.domain_id}`,
+            icon: ICON_MAP[domain.icon] || BarChart3,
+            badge: `${domain.confidence.toFixed(0)}%`,
+            badgeVariant: 'success' as const,
+            color: domain.color,
+          })),
+        }
+      : null
+
+  // Assemble full nav: static → dynamic domains → operations
+  const navSections: NavSection[] = [
+    ...staticSections,
+    ...(domainSection ? [domainSection] : []),
+    ...operationsSections,
+  ]
 
   const sidebarContent = (
     <div className="flex h-full flex-col bg-slate-900 dark:bg-slate-950 text-slate-300 border-r border-slate-800">
@@ -90,9 +193,6 @@ export const EnterpriseSidebar: React.FC<EnterpriseSidebarProps> = ({
             <div className="flex flex-col min-w-0">
               <div className="flex items-center gap-1.5">
                 <span className="font-bold text-xs text-slate-100 tracking-tight">DATASPHÈRE</span>
-                <span className="text-[9px] font-semibold px-1 py-0.2 rounded bg-slate-800 text-sky-400 border border-slate-700">
-                  ENTERPRISE
-                </span>
               </div>
             </div>
           )}
@@ -149,7 +249,7 @@ export const EnterpriseSidebar: React.FC<EnterpriseSidebarProps> = ({
                   }
                   title={isCollapsed ? item.name : undefined}
                 >
-                  <Icon className="h-4 w-4 shrink-0" />
+                  <Icon className="h-4 w-4 shrink-0" style={item.color ? { color: item.color } : undefined} />
                   {!isCollapsed && <span className="flex-1 truncate">{item.name}</span>}
 
                   {!isCollapsed && item.badge && (
@@ -159,7 +259,9 @@ export const EnterpriseSidebar: React.FC<EnterpriseSidebarProps> = ({
                         item.badgeVariant === 'primary' &&
                           'bg-sky-500/15 text-sky-400 border border-sky-500/30',
                         item.badgeVariant === 'destructive' &&
-                          'bg-rose-500/15 text-rose-400 border border-rose-500/30'
+                          'bg-rose-500/15 text-rose-400 border border-rose-500/30',
+                        item.badgeVariant === 'success' &&
+                          'bg-emerald-500/10 text-emerald-400/70 border border-emerald-500/20'
                       )}
                     >
                       {item.badge}
@@ -176,6 +278,33 @@ export const EnterpriseSidebar: React.FC<EnterpriseSidebarProps> = ({
         ))}
       </div>
 
+      {/* Role Switcher */}
+      <div className="px-2 py-2 border-t border-slate-800 shrink-0">
+        {!isCollapsed ? (
+          <DropdownMenu
+            trigger={
+              <div className="flex items-center justify-between rounded-md p-2 hover:bg-slate-800 transition-colors cursor-pointer text-xs">
+                <div className="flex items-center gap-2">
+                  <UserCheck className="h-4 w-4 text-slate-400" />
+                  <div className="flex flex-col">
+                    <span className="font-medium text-slate-300">Active Role</span>
+                    <span className="text-[10px] text-sky-400">{user.role}</span>
+                  </div>
+                </div>
+                <ChevronRight className="h-3 w-3 text-slate-500" />
+              </div>
+            }
+            items={roleMenuItems}
+            align="left"
+            side="top"
+          />
+        ) : (
+          <div className="flex justify-center py-2" title={`Role: ${user.role}`}>
+             <UserCheck className="h-4 w-4 text-slate-400" />
+          </div>
+        )}
+      </div>
+
       {/* System Status Footer */}
       <div className="p-2.5 border-t border-slate-800 bg-slate-950/60 shrink-0">
         {!isCollapsed ? (
@@ -183,17 +312,17 @@ export const EnterpriseSidebar: React.FC<EnterpriseSidebarProps> = ({
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-1.5">
                 <span className="flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                <span className="font-semibold text-slate-300 text-[10px]">Engine Status</span>
+                <span className="font-semibold text-slate-300 text-[10px]">AI Engine</span>
               </div>
-              <span className="text-[9px] font-mono text-emerald-400">HEALTHY</span>
+              <span className="text-[9px] font-mono text-emerald-400">OPERATIONAL</span>
             </div>
             <div className="flex items-center justify-between text-[10px] text-slate-400 font-mono">
-              <span>DuckDB 1.1</span>
-              <span>LlamaGuard 3</span>
+              <span>{discovery?.total_rows ? `${(discovery.total_rows / 1000).toFixed(0)}K records` : '...'}</span>
+              <span>{discovery?.detected_domains?.length ?? '—'} domains</span>
             </div>
           </div>
         ) : (
-          <div className="flex justify-center py-1" title="Engine Status: Healthy">
+          <div className="flex justify-center py-1" title="AI Engine: Operational">
             <span className="flex h-2 w-2 rounded-full bg-emerald-400" />
           </div>
         )}

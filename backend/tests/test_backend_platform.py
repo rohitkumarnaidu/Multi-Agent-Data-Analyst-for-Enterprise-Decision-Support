@@ -44,5 +44,5 @@ def test_api_health():
 
 # Chat endpoints require authentication, so we expect 401 without tokens.
 def test_api_chat_auth():
-    response = client.post("/api/v1/chat/chat", json={"query": "test"})
+    response = client.post("/api/v1/chat", json={"query": "test"})
     assert response.status_code == 401

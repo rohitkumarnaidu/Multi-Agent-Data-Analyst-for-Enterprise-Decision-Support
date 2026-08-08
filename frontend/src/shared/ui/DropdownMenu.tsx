@@ -63,7 +63,9 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
               <button
                 key={item.id}
                 disabled={item.disabled}
-                onClick={() => {
+                onMouseDown={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
                   if (!item.disabled && item.onClick) {
                     item.onClick()
                     setIsOpen(false)
