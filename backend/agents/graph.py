@@ -1,9 +1,10 @@
 from langgraph.graph import StateGraph, END
+from langgraph.types import RetryPolicy
 from agents.state import EnterpriseAgentState
-from agents.registry import registry
+from agents.registry import get_agent_registry
 from agents.router import intent_router
 
-# Import all agents to register them
+# Import all agents to register their factories
 from agents.nodes.data_agent import DataAgent
 from agents.nodes.analysis_agent import AnalysisAgent
 from agents.nodes.narrative_agent import NarrativeAgent
@@ -12,21 +13,33 @@ from agents.nodes.simulation_agent import SimulationAgent
 from agents.nodes.report_agent import ReportAgent
 from agents.nodes.risk_agent import RiskAgent
 
-# Register Agents
-registry.register(DataAgent())
-registry.register(AnalysisAgent())
-registry.register(NarrativeAgent())
-registry.register(ValidatorAgent())
-registry.register(SimulationAgent())
-registry.register(ReportAgent())
-registry.register(RiskAgent())
+# Obtain DI provider registry
+registry = get_agent_registry()
+
+# Register Agent Factories
+registry.register_factory("data_agent", DataAgent)
+registry.register_factory("analysis_agent", AnalysisAgent)
+registry.register_factory("narrative_agent", NarrativeAgent)
+registry.register_factory("validator_agent", ValidatorAgent)
+registry.register_factory("simulation_agent", SimulationAgent)
+registry.register_factory("report_agent", ReportAgent)
+registry.register_factory("risk_agent", RiskAgent)
 
 def build_enterprise_graph() -> StateGraph:
     workflow = StateGraph(EnterpriseAgentState)
 
-    # Add all registered nodes
-    for name, agent in registry.get_all().items():
-        workflow.add_node(name, agent)
+    # Define robust enterprise retry policy
+    retry_policy = RetryPolicy(max_attempts=3, initial_interval=1, backoff_factor=2)
+
+    # Add all registered nodes using the DI registry
+    for name in registry._agent_factories.keys():
+        agent_instance = registry.get(name)
+        
+        # Do not retry validation failures, only recoverable execution failures
+        if name == "validator_agent":
+            workflow.add_node(name, agent_instance)
+        else:
+            workflow.add_node(name, agent_instance, retry_policy=retry_policy)
 
     # Define Conditional Entry Point (Router)
     # The router determines the initial agent based on the intent
@@ -58,5 +71,6 @@ def build_enterprise_graph() -> StateGraph:
     app = workflow.compile()
     return app
 
-# Singleton compiled graph
+# Singleton compiled graph for local testing, 
+# although API routes can build per-request via DI.
 enterprise_graph = build_enterprise_graph()

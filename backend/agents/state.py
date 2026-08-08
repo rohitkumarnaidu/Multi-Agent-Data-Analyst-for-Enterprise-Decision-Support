@@ -29,6 +29,7 @@ class EnterpriseAgentState(TypedDict):
     errors: Annotated[List[str], append_to_list]
     timing: Annotated[Dict[str, float], merge_dicts]
     metadata: Annotated[Dict[str, Any], merge_dicts]
+    telemetry: Annotated[List[Dict[str, Any]], append_to_list]
     
     # RAG / Semantic Context (Placeholder for Phase 6B)
     retrieved_context: List[str]

@@ -1,22 +1,33 @@
 from agents.base import BaseEnterpriseAgent
-from typing import Dict, Type
+from typing import Dict, Type, Callable
 
 class AgentRegistry:
     def __init__(self):
-        self._agents: Dict[str, BaseEnterpriseAgent] = {}
+        self._agent_factories: Dict[str, Callable[[], BaseEnterpriseAgent]] = {}
+        self._instances: Dict[str, BaseEnterpriseAgent] = {}
 
-    def register(self, agent: BaseEnterpriseAgent):
-        self._agents[agent.name] = agent
+    def register_factory(self, name: str, factory: Callable[[], BaseEnterpriseAgent]):
+        self._agent_factories[name] = factory
 
     def get(self, name: str) -> BaseEnterpriseAgent:
-        if name not in self._agents:
+        if name not in self._agent_factories:
             raise ValueError(f"Agent '{name}' not found in registry.")
-        return self._agents[name]
+        # Lazy initialization via factory
+        if name not in self._instances:
+            self._instances[name] = self._agent_factories[name]()
+        return self._instances[name]
 
     def get_all(self) -> Dict[str, BaseEnterpriseAgent]:
-        return self._agents
+        # Instantiate all
+        return {name: self.get(name) for name in self._agent_factories}
         
     def check_health(self) -> Dict[str, str]:
-        return {name: "healthy" for name in self._agents}
+        return {name: "healthy" for name in self._agent_factories}
 
-registry = AgentRegistry()
+# Dependency Injection Provider for FastAPI compatibility
+_global_registry = AgentRegistry()
+
+def get_agent_registry() -> AgentRegistry:
+    """FastAPI dependency provider for the Agent Registry."""
+    return _global_registry
+

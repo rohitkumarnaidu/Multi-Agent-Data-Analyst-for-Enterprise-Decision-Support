@@ -1,25 +1,15 @@
-# Developer Guide
+# Developer Guide (Updated for DI & Security)
 
-## How to build a new agent
-To add a new agent to the orchestration graph:
+## Creating a New Agent
+1. **Inherit** from `BaseEnterpriseAgent`.
+2. **Implement** the `execute(self, state: EnterpriseAgentState)` method.
+3. **Register** your agent class in `graph.py` using `registry.register_factory(name, Class)`.
 
-1. **Create the Node:**
-   Create a new Python file in `backend/agents/nodes/`. Inherit from `BaseEnterpriseAgent`:
-   ```python
-   class MyNewAgent(BaseEnterpriseAgent):
-       def __init__(self):
-           super().__init__("my_new_agent")
+## Handling State
+Do not mutate `state` directly inside the agent. Instead, return a `Dict` of updates. The `EnterpriseAgentState` reducers (like `append_to_list` and `merge_dicts`) will handle merging the updates into the global graph state.
 
-       def execute(self, state: EnterpriseAgentState) -> Dict[str, Any]:
-           # Do work
-           return {"narrative": "Updated narrative"}
-   ```
+## Security
+Do not manually add PII stripping logic to your `execute()` method. The `BaseEnterpriseAgent` wrapper automatically triggers `_mask_pii()` before your logic runs.
 
-2. **Register the Node:**
-   In `backend/agents/graph.py`, import and register your agent:
-   ```python
-   registry.register(MyNewAgent())
-   ```
-
-3. **Wire the Graph:**
-   Add conditional edges to `intent_router` and structural edges to the `workflow` definition in `graph.py` to route traffic to and from your node.
+## Retries
+If you detect a transient failure (e.g., database timeout), simply `raise` an Exception in your `execute()` block. The LangGraph `RetryPolicy` (exponential backoff up to 3 times) will automatically catch it, log it, and retry the node.

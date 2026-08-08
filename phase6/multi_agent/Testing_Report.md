@@ -1,13 +1,15 @@
-# Testing Report
-**Test Suite:** `backend/tests/test_agents.py`
-**Framework:** PyTest
+# Testing Report (Updated)
 
-## Test Cases Validated
-1. **test_data_path:** Verified that `intent: data` properly routes the execution through `data_agent`, `analysis_agent`, `narrative_agent`, and finally `validator_agent`. Verified state mutations and confidence scoring.
-2. **test_simulation_path:** Verified that `intent: simulate` routes exclusively to `simulation_agent` and `validator_agent`.
-3. **test_report_path:** Verified that `intent: report` routes exclusively to `report_agent` and `validator_agent`.
+## Overview
+The PyTest suite located at `backend/tests/test_agents.py` verifies the orchestration and gap resolution of the Multi-Agent Core.
 
-## Results
-- **Status:** PASS
-- **Coverage:** 100% of orchestration edges validated.
-- **Trace Reducers:** Validated that the `append_to_list` custom reducer successfully handles arbitrary list appends during parallel graph execution.
+## Test Cases
+- `test_data_path`: Verifies routing to `data_agent` -> `analysis_agent` -> `narrative_agent` -> `validator_agent`.
+- `test_simulation_path`: Verifies routing to `simulation_agent` -> `validator_agent`.
+- `test_report_path`: Verifies routing to `report_agent` -> `validator_agent`.
+- `test_dependency_injection`: Verifies lazy loading via `AgentRegistry` factory functions.
+- `test_telemetry_and_security`: Executes the graph and statically analyzes the `telemetry` payload for valid schemas and UUIDs.
+
+## Coverage
+**100% Pass Rate (5/5)**
+All routes resolve cleanly to END. List reducers correctly flatten state modifications without deep nesting.

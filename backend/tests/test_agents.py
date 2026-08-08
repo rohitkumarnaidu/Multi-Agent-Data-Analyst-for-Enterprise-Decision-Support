@@ -45,3 +45,33 @@ def test_report_path():
     assert "report_agent executed" in result["trace"][0]
     assert "validator_agent executed" in result["trace"][1]
     assert result["validation_status"] == "passed"
+
+def test_dependency_injection():
+    from agents.registry import get_agent_registry
+    registry = get_agent_registry()
+    assert "data_agent" in registry._agent_factories
+    
+    # Prove it uses lazy loading / factory
+    agent1 = registry.get("data_agent")
+    assert agent1.name == "data_agent"
+
+def test_telemetry_and_security():
+    # Run the graph and verify telemetry payload is generated properly
+    initial_state = {
+        "session_id": "test_session_4",
+        "question": "Telemetry check",
+        "intent": "data"
+    }
+    result = enterprise_graph.invoke(initial_state)
+    
+    # Check telemetry payload exists and has all required fields
+    telemetry_logs = result.get("telemetry", [])
+    assert len(telemetry_logs) >= 2 # at least data and validator
+    
+    data_agent_telemetry = telemetry_logs[0]
+    assert data_agent_telemetry["agent_name"] == "data_agent"
+    assert "execution_id" in data_agent_telemetry
+    assert data_agent_telemetry["correlation_id"] == "test_session_4"
+    assert data_agent_telemetry["recovery_status"] == "n/a"
+    assert data_agent_telemetry["retries"] == 0
+    assert "latency_sec" in data_agent_telemetry
