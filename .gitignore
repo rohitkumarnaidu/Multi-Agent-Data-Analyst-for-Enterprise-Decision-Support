@@ -45,3 +45,5 @@ package-lock.json
 unpacked/
 outputs/
 eval/
+catboost_info/
+*.log

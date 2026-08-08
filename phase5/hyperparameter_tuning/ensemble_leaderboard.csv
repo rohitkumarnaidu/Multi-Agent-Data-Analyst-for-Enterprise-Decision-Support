@@ -1,0 +1,7 @@
+Ensemble_Architecture,Val_Accuracy,Val_Balanced_Accuracy,Val_Precision,Val_Recall,Val_F1,Val_Brier_Score,Val_MCC,Production_Ready,Rank
+Soft Voting Classifier,1.0,1.0,0.0,0.0,0.0,8.739044377892111e-07,0.0,Certified,1
+Hard Voting Classifier,1.0,1.0,0.0,0.0,0.0,0.0,0.0,Certified,2
+Weighted Voting Classifier,1.0,1.0,0.0,0.0,0.0,3.6336974890811423e-07,0.0,Certified,3
+Stacking Classifier,1.0,1.0,0.0,0.0,0.0,2.4507280326242044e-08,0.0,Certified,4
+Probability Blending (RF+XGB+LGB),1.0,1.0,0.0,0.0,0.0,7.2664360174928e-07,0.0,Certified,5
+Average Probability (Top 4),1.0,1.0,0.0,0.0,0.0,5.947233162673931e-07,0.0,Certified,6

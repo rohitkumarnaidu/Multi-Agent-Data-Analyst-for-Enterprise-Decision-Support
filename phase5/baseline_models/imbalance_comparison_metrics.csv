@@ -1,0 +1,7 @@
+Strategy,Model,Val_Accuracy,Val_F1,Val_Balanced_Accuracy,Training_Time_Sec,Note
+Class_Weight_Balanced,Balanced_Logistic_Regression,1.0,0.0,1.0,0.2625,Class-weighted loss penalty adjustment
+Class_Weight_Balanced,Balanced_Random_Forest,1.0,0.0,1.0,0.8167,Class-weighted loss penalty adjustment
+Class_Weight_Balanced,Balanced_Decision_Tree,1.0,0.0,1.0,0.3354,Class-weighted loss penalty adjustment
+Class_Weight_Balanced,Balanced_XGBoost,1.0,0.0,1.0,0.2731,Class-weighted loss penalty adjustment
+Class_Weight_Balanced,Balanced_LightGBM,1.0,0.0,1.0,0.5033,Class-weighted loss penalty adjustment
+Random_Oversampling_SMOTE_Proxy,Oversampled_Random_Forest,1.0,0.0,1.0,0.9378,Synthetic/Random Oversampling at 1% positive ratio

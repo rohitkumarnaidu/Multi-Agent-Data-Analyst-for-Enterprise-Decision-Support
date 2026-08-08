@@ -1,0 +1,10 @@
+Model,Brier_Score,ECE,Mean_Predicted,Mean_Actual,Status
+Logistic_Regression,0.987414,0.006223,0.987559,7e-06,Good
+Decision_Tree,0.218514,7e-06,0.218507,7e-06,Good
+Random_Forest,0.001361,0.033855,0.033862,7e-06,Good
+Extra_Trees,0.002013,0.026133,0.02614,7e-06,Good
+XGBoost,7e-06,0.0,7e-06,7e-06,Good
+LightGBM,7e-06,8.3e-05,9e-05,7e-06,Good
+CatBoost,0.000112,0.008111,0.008118,7e-06,Good
+HistGradientBoosting,0.000142,0.008665,0.008672,7e-06,Good
+GaussianNB,7e-06,7e-06,0.0,7e-06,Good

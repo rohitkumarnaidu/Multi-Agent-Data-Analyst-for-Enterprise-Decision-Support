@@ -1,0 +1,5 @@
+Model,Raw_Brier_Score,Platt_Brier_Score,Isotonic_Brier_Score,Calibration_Improvement_Platt_Pct,Calibration_Improvement_Isotonic_Pct,Recommended_Calibration
+Random_Forest,6.331771480102203e-08,6.331771480102203e-08,6.331771480102203e-08,0.0,0.0,Platt (Sigmoid)
+Logistic_Regression,3.36852860950228e-08,3.36852860950228e-08,3.36852860950228e-08,0.0,0.0,Platt (Sigmoid)
+XGBoost,6.871480273673569e-09,6.871480273673569e-09,6.871480273673569e-09,0.0,0.0,Platt (Sigmoid)
+LightGBM,7.03134056215071e-06,7.03134056215071e-06,7.03134056215071e-06,0.0,0.0,Platt (Sigmoid)

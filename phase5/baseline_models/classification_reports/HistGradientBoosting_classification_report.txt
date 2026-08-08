@@ -1,0 +1,15 @@
+CLASSIFICATION REPORT: HistGradientBoosting
+============================================================
+              precision    recall  f1-score   support
+
+           0       1.00      0.92      0.96     30000
+           1       0.00      0.00      0.00         0
+
+    accuracy                           0.92     30000
+   macro avg       0.50      0.46      0.48     30000
+weighted avg       1.00      0.92      0.96     30000
+
+
+Confusion Matrix:
+[[27585  2415]
+ [    0     0]]

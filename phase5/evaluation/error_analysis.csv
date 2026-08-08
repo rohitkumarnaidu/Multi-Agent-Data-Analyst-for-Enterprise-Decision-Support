@@ -1,0 +1,10 @@
+Model,Total_Errors,False_Positives,False_Negatives,Low_Confidence_Count,Low_Conf_Pct,Avg_Prob_FP,Avg_Prob_FN,Avg_Prob_Correct,High_Conf_Errors
+Logistic_Regression,138253,138253,0,31,0.02,0.9999,0.0,0.0094,138230
+Decision_Tree,30592,30591,1,0,0.0,1.0,0.0,0.0,30591
+Random_Forest,1,0,1,0,0.0,0.0,0.0399,0.0339,0
+Extra_Trees,1,0,1,0,0.0,0.0,0.0133,0.0261,0
+XGBoost,1,0,1,0,0.0,0.0,0.0,0.0,0
+LightGBM,1,0,1,0,0.0,0.0,0.0001,0.0001,0
+CatBoost,1,0,1,0,0.0,0.0,0.0054,0.0081,0
+HistGradientBoosting,1,0,1,0,0.0,0.0,0.0083,0.0087,0
+GaussianNB,1,0,1,0,0.0,0.0,0.0,0.0,0

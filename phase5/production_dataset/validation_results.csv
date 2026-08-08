@@ -1,0 +1,9 @@
+Test_ID,Test_Name,Expected,Actual,Status,Details
+VAL-001,Feature Count Match,35 columns,35 columns,PASS,Dataset contains exactly 34 approved predictors + 1 target
+VAL-002,Excluded Features Absence,0 excluded features present,0 excluded features present,PASS,All 14 excluded master features verified absent
+VAL-003,Target Variable Integrity,Target 'SLA_Breached' present,Target 'SLA_Breached' present,PASS,Binary integer distribution preserved across all splits
+VAL-004,Zero Missing Values,0 nulls,"0 nulls in train, 0 in val, 0 in test",PASS,All missing entries imputed strictly per feature store contracts
+VAL-005,Zero Duplicates,0 duplicate rows,0 duplicates,PASS,Row uniqueness verified
+VAL-006,Zero NaN/Inf Inconsistencies,0 NaN/Inf,0 NaN/Inf,PASS,Float boundaries validated without infinite values
+VAL-007,Stratified Split Ratio,70% / 15% / 15%,70.0% / 15.0% / 15.0%,PASS,"Target class balance identical across train, val, and test splits"
+VAL-008,Column Ordering Consistency,Strict predictor + target ordering,Strict predictor + target ordering,PASS,Identical column sequence in all three datasets

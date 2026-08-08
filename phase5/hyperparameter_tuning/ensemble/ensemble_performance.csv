@@ -1,0 +1,7 @@
+Ensemble_Architecture,Component_Models,Val_Accuracy,Val_Balanced_Accuracy,Val_F1,Val_Brier_Score,Val_MCC,Ensemble_Rank
+Soft_Voting_Classifier,RF + ExtraTrees + CatBoost + LogisticRegression,1.0,1.0,0.0,2.316675240551276e-07,0.0,1
+Hard_Voting_Classifier,RF + ExtraTrees + CatBoost + LogisticRegression,1.0,1.0,0.0,0.0,0.0,2
+Weighted_Voting_Classifier,"Weights: [0.35, 0.25, 0.25, 0.15]",1.0,1.0,0.0,2.9975656658564204e-07,0.0,1
+Stacking_Classifier,"Base: [RF, ET, CB, LR] | Meta: LogisticRegression",1.0,1.0,0.0,1.1894900244115313e-08,0.0,1
+Probability_Blending_Ensemble,Blend: 0.4 RF + 0.3 CB + 0.3 ET,1.0,1.0,0.0,9.249118490037232e-08,0.0,1
+Average_Probability_Ensemble,Average: RF + ET + CB + XGB + LGBM,1.0,1.0,0.0,3.118036219288109e-08,0.0,1

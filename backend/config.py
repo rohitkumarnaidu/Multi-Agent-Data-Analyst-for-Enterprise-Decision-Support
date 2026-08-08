@@ -40,8 +40,8 @@ class Settings:
 
     # ── Ollama (Local Fallback) ──
     OLLAMA_HOST: str = os.getenv("OLLAMA_HOST", "http://localhost:11434")
-    OLLAMA_MODEL: str = os.getenv("OLLAMA_MODEL", "gemma3:12b")
-    OLLAMA_FALLBACK_MODEL: str = os.getenv("OLLAMA_FALLBACK_MODEL", "deepseek-r1")
+    OLLAMA_MODEL: str = os.getenv("OLLAMA_MODEL", "gemma4:12b")
+    OLLAMA_FALLBACK_MODEL: str = os.getenv("OLLAMA_FALLBACK_MODEL", "deepseek-r1:8b")
 
     # ── Safety Limits (from 06-evaluation doc) ──
     MAX_STEPS_PER_QUESTION: int = 8
@@ -74,65 +74,112 @@ class Settings:
         )
 
 
+
 # Singleton instance
 settings = Settings()
+
+
+class NullLLM:
+    """
+    Sentinel LLM for Tier 3 (deterministic-only mode).
+    Raises a clean RuntimeError that all agents catch and route to their
+    deterministic template fallback. Guarantees 100% uptime with zero LLM.
+    """
+    def invoke(self, prompt, **kwargs):
+        raise RuntimeError("[NullLLM] No LLM provider available — using deterministic fallback.")
+
+    def __call__(self, prompt, **kwargs):
+        raise RuntimeError("[NullLLM] No LLM provider available — using deterministic fallback.")
 
 
 def get_llm(provider: str = None, model: str = None, temperature: float = 0.1):
     """
     Factory function returning a LangChain-compatible LLM.
 
-    Provider priority:
-      1. Explicit provider argument
-      2. settings.DEFAULT_LLM_PROVIDER from .env
-      3. Fallback chain: groq -> ollama
+    3-Tier Fallback Chain:
+      Tier 1 — Groq    (cloud, fastest):  requires GROQ_API_KEY env var
+      Tier 2 — Ollama  (local, offline):  requires Ollama server running locally
+      Tier 3 — NullLLM (deterministic):   no LLM at all — agents use rule/template fallback
 
-    Returns a LangChain BaseChatModel instance.
+    Returns a LangChain-compatible LLM or NullLLM sentinel.
     """
     provider = provider or settings.DEFAULT_LLM_PROVIDER
 
-    if provider == "groq":
+    # ── Tier 1: Groq (Cloud) ──
+    if provider in ("groq", "auto"):
         try:
             from langchain_groq import ChatGroq
-            if not settings.GROQ_API_KEY:
-                raise ValueError("GROQ_API_KEY not set")
-            return ChatGroq(
-                api_key=settings.GROQ_API_KEY,
+            api_key = settings.GROQ_API_KEY or os.getenv("GROQ_API_KEY", "")
+            if not api_key:
+                raise ValueError("GROQ_API_KEY not set in environment or .env")
+            llm = ChatGroq(
+                api_key=api_key,
                 model=model or settings.GROQ_MODEL,
                 temperature=temperature,
                 max_retries=2,
             )
-        except (ImportError, ValueError) as e:
-            print(f"[CONFIG] Groq unavailable ({e}), falling back to Ollama...")
-            return get_llm(provider="ollama", model=model, temperature=temperature)
+            print(f"[LLM] Tier 1 active: Groq ({settings.GROQ_MODEL})")
+            return llm
+        except Exception as e:
+            print(f"[LLM] Tier 1 (Groq) unavailable: {e}")
 
-    elif provider == "ollama":
+    # ── Tier 2: Ollama (Local) ──
+    if provider in ("ollama", "auto", "groq"):
         try:
-            from langchain_community.llms import Ollama
-            return Ollama(
-                base_url=settings.OLLAMA_HOST,
-                model=model or settings.OLLAMA_MODEL,
-                temperature=temperature,
-            )
-        except ImportError:
-            # Last resort: try the fallback model
-            from langchain_community.llms import Ollama
-            return Ollama(
-                base_url=settings.OLLAMA_HOST,
-                model=settings.OLLAMA_FALLBACK_MODEL,
-                temperature=temperature,
-            )
+            import httpx as _httpx
+            # Probe Ollama server health (3s timeout — don't hang)
+            resp = _httpx.get(f"{settings.OLLAMA_HOST}/api/tags", timeout=3.0)
+            resp.raise_for_status()
+            raw_models = resp.json().get("models", [])
+            # Keep FULL names including tags (e.g. "gemma4:12b", "deepseek-r1:8b")
+            available_full = [m["name"] for m in raw_models]
+            available_base = [m["name"].split(":")[0] for m in raw_models]
 
-    else:
-        raise ValueError(f"Unknown LLM provider: {provider}. Use 'groq' or 'ollama'.")
+            # Match preferred models against full name OR base prefix
+            preferred_full = [settings.OLLAMA_MODEL, settings.OLLAMA_FALLBACK_MODEL]
+            preferred_base = [settings.OLLAMA_MODEL.split(":")[0], settings.OLLAMA_FALLBACK_MODEL.split(":")[0]]
+
+            selected_model = None
+            for full, base in zip(preferred_full, preferred_base):
+                if full in available_full:
+                    selected_model = full  # exact match with tag
+                    break
+                elif base in available_base:
+                    # find the actual full name for this base
+                    idx = available_base.index(base)
+                    selected_model = available_full[idx]
+                    break
+
+            if not selected_model and available_full:
+                selected_model = available_full[0]  # first available
+            if not selected_model:
+                raise ValueError("Ollama running but no models loaded. Pull a model first.")
+
+            # Try langchain-ollama (non-deprecated) first
+            try:
+                from langchain_ollama import OllamaLLM
+                llm = OllamaLLM(base_url=settings.OLLAMA_HOST, model=selected_model, temperature=temperature)
+                print(f"[LLM] Tier 2 active: Ollama/{selected_model} (langchain-ollama)")
+                return llm
+            except ImportError:
+                from langchain_community.llms import Ollama
+                llm = Ollama(base_url=settings.OLLAMA_HOST, model=selected_model, temperature=temperature)
+                print(f"[LLM] Tier 2 active: Ollama/{selected_model} (langchain-community)")
+                return llm
+
+        except Exception as e:
+            print(f"[LLM] Tier 2 (Ollama) unavailable: {e}")
+
+    # ── Tier 3: NullLLM (Deterministic-only mode) ──
+    print("[LLM] Tier 3 active: NullLLM — deterministic-only mode (agents use rule/template fallback)")
+    return NullLLM()
 
 
 def get_fallback_llm(temperature: float = 0.1):
-    """
-    Returns the local fallback LLM (Ollama).
-    Used when the primary cloud LLM fails.
-    """
+    """Returns the local Ollama LLM (Tier 2), or NullLLM if unavailable."""
     return get_llm(provider="ollama", temperature=temperature)
+
+
 
 
 def ensure_dirs():

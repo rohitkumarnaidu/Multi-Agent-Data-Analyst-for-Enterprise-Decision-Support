@@ -1,0 +1,50 @@
+Original Feature,Selected,Reason,Source Phase,Business Group
+Record_ID,False,Excluded: Raw Identifier / Temporal Non-Stationary Field,Phase 1 / Phase 2,Excluded Attribute
+Transaction_Date,False,Excluded: Raw Identifier / Temporal Non-Stationary Field,Phase 1 / Phase 2,Excluded Attribute
+Timestamp,False,Excluded: Raw Identifier / Temporal Non-Stationary Field,Phase 1 / Phase 2,Excluded Attribute
+Department,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Operations
+Business_Unit,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Organizational
+Region,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Organizational
+Data_Source_System,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),System Infrastructure
+Assigned_Agent,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Operations
+Query_Type,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),AI & Quality
+Num_Agents_Involved,False,Excluded: Low Explainability / Redundancy / Overfitting Hazard,Phase 4 (Consensus Optimization),Excluded Attribute
+Query_Complexity_Score,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),AI & Quality
+Input_Tokens,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),AI & Quality
+Output_Tokens,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),AI & Quality
+Processing_Time_Sec,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Operations
+KPI_Metric_Name,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Business KPI
+KPI_Current_Value,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Business KPI
+KPI_Target_Value,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Business KPI
+Deviation_Percentage,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Business KPI
+Transaction_Amount_USD,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Finance
+Revenue_Impact_USD,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Finance
+Cost_Savings_Potential_USD,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Finance
+Anomaly_Detected,False,Excluded: Filtered by Statistical & Business Governance,Phase 4,Excluded Attribute
+Anomaly_Score,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Risk & Anomaly
+Confidence_Score,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),AI & Quality
+Data_Quality_Score,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),AI & Quality
+Root_Cause_Category,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Decision Support
+Recommended_Action,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Decision Support
+Priority_Level,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Risk & Anomaly
+Risk_Level,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Risk & Anomaly
+Escalation_Level,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Risk & Anomaly
+Decision_Outcome,False,Excluded: Post-Event Data Leakage Risk / High Cardinality Text,Phase 3 (Leakage Prevention),Excluded Attribute
+SLA_Breached,True,Certified Target Variable for Predictive Modeling,Phase 1 (Data Acquisition & Business Objectives),Target Variable
+Agent_Accuracy_Feedback,False,Excluded: Post-Event Data Leakage Risk / High Cardinality Text,Phase 3 (Leakage Prevention),Excluded Attribute
+Employee_ID_Handler,False,Excluded: Low Explainability / Redundancy / Overfitting Hazard,Phase 4 (Consensus Optimization),Excluded Attribute
+Customer_Segment,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Organizational
+Report_Summary_Text,False,Excluded: Post-Event Data Leakage Risk / High Cardinality Text,Phase 3 (Leakage Prevention),Excluded Attribute
+Requires_Human_Review,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Risk & Anomaly
+Processing_Time_Sec_Is_Outlier,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Outlier Detection
+Transaction_Amount_USD_Is_Outlier,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Outlier Detection
+Start_Timestamp,False,Excluded: Raw Identifier / Temporal Non-Stationary Field,Phase 1 / Phase 2,Excluded Attribute
+Day_Of_Week,False,Excluded: Low Explainability / Redundancy / Overfitting Hazard,Phase 4 (Consensus Optimization),Excluded Attribute
+Is_Weekend,False,Excluded: Low Explainability / Redundancy / Overfitting Hazard,Phase 4 (Consensus Optimization),Excluded Attribute
+Total_Margin_USD,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Finance
+Tokens_Per_Second,False,Excluded: Low Explainability / Redundancy / Overfitting Hazard,Phase 4 (Consensus Optimization),Excluded Attribute
+Complexity_Per_Agent,False,Excluded: Low Explainability / Redundancy / Overfitting Hazard,Phase 4 (Consensus Optimization),Excluded Attribute
+Rolling_7_Txn_Avg_Amount_By_Dept,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Operations
+Prev_Txn_Amount_By_Dept,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Operations
+PoP_Amount_Change_Pct,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Finance
+Rank_Amount_Within_Dept,True,Approved in Phase 4E Enterprise Feature Governance (Top Consensus Score),Phase 4 (Enterprise Feature Selection),Operations

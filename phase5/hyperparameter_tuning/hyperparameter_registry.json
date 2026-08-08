@@ -1,0 +1,112 @@
+{
+  "Logistic_Regression": {
+    "model_name": "Logistic_Regression",
+    "optimization_engine": "Optuna TPE Sampler",
+    "tuned_parameters": {
+      "C": 0.31489116479568624,
+      "penalty": "l2",
+      "solver": "lbfgs",
+      "max_iter": 961,
+      "class_weight": null
+    },
+    "search_cv": "5-Fold Stratified",
+    "status": "Optimized"
+  },
+  "Decision_Tree": {
+    "model_name": "Decision_Tree",
+    "optimization_engine": "Optuna TPE Sampler",
+    "tuned_parameters": {
+      "max_depth": 6,
+      "min_samples_split": 5,
+      "min_samples_leaf": 4,
+      "criterion": "gini",
+      "class_weight": "balanced"
+    },
+    "search_cv": "5-Fold Stratified",
+    "status": "Optimized"
+  },
+  "Random_Forest": {
+    "model_name": "Random_Forest",
+    "optimization_engine": "Optuna TPE Sampler",
+    "tuned_parameters": {
+      "n_estimators": 87,
+      "max_depth": 24,
+      "min_samples_split": 8,
+      "min_samples_leaf": 3,
+      "class_weight": null
+    },
+    "search_cv": "5-Fold Stratified",
+    "status": "Optimized"
+  },
+  "Extra_Trees": {
+    "model_name": "Extra_Trees",
+    "optimization_engine": "Optuna TPE Sampler",
+    "tuned_parameters": {
+      "n_estimators": 87,
+      "max_depth": 24,
+      "min_samples_split": 8,
+      "min_samples_leaf": 3,
+      "class_weight": null
+    },
+    "search_cv": "5-Fold Stratified",
+    "status": "Optimized"
+  },
+  "XGBoost": {
+    "model_name": "XGBoost",
+    "optimization_engine": "Optuna TPE Sampler",
+    "tuned_parameters": {
+      "n_estimators": 87,
+      "max_depth": 10,
+      "learning_rate": 0.1205712628744377,
+      "subsample": 0.8394633936788146,
+      "colsample_bytree": 0.6624074561769746,
+      "scale_pos_weight": 2.403950683025824
+    },
+    "search_cv": "5-Fold Stratified",
+    "status": "Optimized"
+  },
+  "LightGBM": {
+    "model_name": "LightGBM",
+    "optimization_engine": "Optuna TPE Sampler",
+    "tuned_parameters": {
+      "n_estimators": 111,
+      "max_depth": 4,
+      "learning_rate": 0.027010527749605478,
+      "num_leaves": 32,
+      "subsample": 0.7824279936868144
+    },
+    "search_cv": "5-Fold Stratified",
+    "status": "Optimized"
+  },
+  "CatBoost": {
+    "model_name": "CatBoost",
+    "optimization_engine": "Optuna TPE Sampler",
+    "tuned_parameters": {
+      "iterations": 87,
+      "depth": 8,
+      "learning_rate": 0.1205712628744377
+    },
+    "search_cv": "5-Fold Stratified",
+    "status": "Optimized"
+  },
+  "HistGradientBoosting": {
+    "model_name": "HistGradientBoosting",
+    "optimization_engine": "Optuna TPE Sampler",
+    "tuned_parameters": {
+      "max_iter": 101,
+      "max_depth": 10,
+      "learning_rate": 0.011711509955524094
+    },
+    "search_cv": "5-Fold Stratified",
+    "status": "Optimized"
+  },
+  "GaussianNB": {
+    "model_name": "GaussianNB",
+    "optimization_engine": "Optuna TPE Sampler",
+    "tuned_parameters": {
+      "var_smoothing": 1.767016940294792e-09
+    },
+    "search_cv": "5-Fold Stratified",
+    "status": "Optimized"
+  }
+}

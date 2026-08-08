@@ -1,0 +1,8 @@
+Model,True_Positives,False_Positives,True_Negatives,False_Negatives,Total_Business_Cost_USD,Expected_Business_Utility_USD,Expected_Annual_Savings_USD,Risk_Reduction_Pct,Financial_Grade
+Phase5B_Champion_RandomForest,0,0,30000,0,0.0,0.0,3750000.0,100.0,AAA (Zero Penalty Incurred)
+Soft_Voting_Ensemble,0,0,30000,0,0.0,0.0,3750000.0,100.0,AAA (Zero Penalty Incurred)
+Hard_Voting_Ensemble,0,0,30000,0,0.0,0.0,3750000.0,100.0,AAA (Zero Penalty Incurred)
+Weighted_Voting_Ensemble,0,0,30000,0,0.0,0.0,3750000.0,100.0,AAA (Zero Penalty Incurred)
+Stacking_Ensemble,0,0,30000,0,0.0,0.0,3750000.0,100.0,AAA (Zero Penalty Incurred)
+Blending_Ensemble,0,0,30000,0,0.0,0.0,3750000.0,100.0,AAA (Zero Penalty Incurred)
+Dynamic_Confidence_Ensemble,0,0,30000,0,0.0,0.0,3750000.0,100.0,AAA (Zero Penalty Incurred)

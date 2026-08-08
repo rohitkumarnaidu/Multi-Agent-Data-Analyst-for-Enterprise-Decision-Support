@@ -1,0 +1,2 @@
+Model,Accuracy,Precision,Recall,F1_Score,ROC_AUC,PR_AUC,Balanced_Accuracy,Matthews_Corr,Cohen_Kappa,Log_Loss,Brier_Score,Inference_Time_ms,Latency_ms_per_sample,Throughput_samples_sec,Memory_Usage_MB,CPU_Usage_Pct
+Hard_Voting_Ensemble,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.0,0.0,1731.117000017548,0.05770390000058493,17329.851188392175,504.67578125,35.5

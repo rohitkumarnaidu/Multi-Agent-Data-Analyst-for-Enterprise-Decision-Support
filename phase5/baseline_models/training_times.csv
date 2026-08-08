@@ -1,0 +1,10 @@
+Model,Training_Time_Sec,Peak_Memory_MB,Samples_Trained,Training_Throughput_samples_per_sec
+Logistic_Regression,0.109,4.45,140000,1284047.9
+Decision_Tree,0.2808,25.78,140000,498625.0
+Random_Forest,1.2929,158.92,140000,108280.6
+Extra_Trees,0.9321,116.64,140000,150204.0
+XGBoost,2.5016,1.07,140000,55964.7
+LightGBM,0.4362,2.76,140000,320955.4
+CatBoost,2.3028,1.61,140000,60795.9
+HistGradientBoosting,1.9683,25.47,140000,71126.1
+Naive_Bayes,0.0663,72.83,140000,2111814.5

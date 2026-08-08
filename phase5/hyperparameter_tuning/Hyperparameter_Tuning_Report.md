@@ -1,0 +1,69 @@
+# HYPERPARAMETER TUNING REPORT
+## Optuna Optimization Traces & Best Parameter Configurations
+
+### Best Parameter Configurations
+```json
+{
+  "Logistic_Regression": {
+    "C": 0.31489116479568624,
+    "penalty": "l2",
+    "solver": "lbfgs",
+    "max_iter": 961,
+    "class_weight": null
+  },
+  "Decision_Tree": {
+    "max_depth": 6,
+    "min_samples_split": 5,
+    "min_samples_leaf": 4,
+    "criterion": "gini",
+    "class_weight": "balanced"
+  },
+  "Random_Forest": {
+    "n_estimators": 87,
+    "max_depth": 24,
+    "min_samples_split": 8,
+    "min_samples_leaf": 3,
+    "class_weight": null
+  },
+  "Extra_Trees": {
+    "n_estimators": 87,
+    "max_depth": 24,
+    "min_samples_split": 8,
+    "min_samples_leaf": 3,
+    "class_weight": null
+  },
+  "XGBoost": {
+    "n_estimators": 87,
+    "max_depth": 10,
+    "learning_rate": 0.1205712628744377,
+    "subsample": 0.8394633936788146,
+    "colsample_bytree": 0.6624074561769746,
+    "scale_pos_weight": 2.403950683025824
+  },
+  "LightGBM": {
+    "n_estimators": 111,
+    "max_depth": 4,
+    "learning_rate": 0.027010527749605478,
+    "num_leaves": 32,
+    "subsample": 0.7824279936868144
+  },
+  "CatBoost": {
+    "iterations": 87,
+    "depth": 8,
+    "learning_rate": 0.1205712628744377
+  },
+  "HistGradientBoosting": {
+    "max_iter": 101,
+    "max_depth": 10,
+    "learning_rate": 0.011711509955524094
+  },
+  "GaussianNB": {
+    "var_smoothing": 1.767016940294792e-09
+  }
+}
+```
+
+### Search Strategies
+- **Sampling Algorithm**: Tree-structured Parzen Estimator (TPE)
+- **Pruning Strategy**: Median Pruner
+- **Cross-Validation**: 5-Fold Stratified K-Fold on Training Set

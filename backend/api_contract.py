@@ -8,9 +8,27 @@ Usage:
     from backend.api_contract import AskRequest, AskResponse, TraceStep
 """
 
+from enum import Enum
 from pydantic import BaseModel, Field
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime
+
+
+class ConfidenceLevel(str, Enum):
+    HIGH = "HIGH"
+    MEDIUM = "MEDIUM"
+    LOW = "LOW"
+
+
+class ValidationReport(BaseModel):
+    """Structured output from the Validator Agent's Zero-Trust check."""
+    is_valid: bool = Field(default=True)
+    confidence_score: float = Field(default=0.0, ge=0.0, le=1.0)
+    confidence_level: ConfidenceLevel = Field(default=ConfidenceLevel.LOW)
+    checks_passed: List[str] = Field(default_factory=list)
+    checks_failed: List[str] = Field(default_factory=list)
+    requires_human_approval: bool = Field(default=False)
+    approval_reason: Optional[str] = Field(default=None)
 
 
 class AskRequest(BaseModel):

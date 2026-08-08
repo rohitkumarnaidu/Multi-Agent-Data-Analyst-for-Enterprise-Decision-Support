@@ -1,0 +1,13 @@
+Model,Calibration_Method,Brier_Score,Expected_Calibration_Error
+Random_Forest,Raw (Uncalibrated),0.0,1e-05
+Random_Forest,Platt Scaling (Sigmoid),0.0,1e-05
+Random_Forest,Isotonic Regression,0.0,1e-05
+Logistic_Regression,Raw (Uncalibrated),0.0,2.4e-05
+Logistic_Regression,Platt Scaling (Sigmoid),0.0,2.4e-05
+Logistic_Regression,Isotonic Regression,0.0,2.4e-05
+CatBoost,Raw (Uncalibrated),0.0,4e-06
+CatBoost,Platt Scaling (Sigmoid),0.0,4e-06
+CatBoost,Isotonic Regression,0.0,4e-06
+LightGBM,Raw (Uncalibrated),0.0,2e-06
+LightGBM,Platt Scaling (Sigmoid),0.0,2e-06
+LightGBM,Isotonic Regression,0.0,2e-06

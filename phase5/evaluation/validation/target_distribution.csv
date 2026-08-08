@@ -1,0 +1,4 @@
+Split,File,Total_Rows,Positive_Count_(SLA=1),Negative_Count_(SLA=0),Positive_Pct,Negative_Pct,Imbalance_Ratio,Has_Positive_Samples,Sufficient_for_ROC_AUC,Sufficient_for_PR_AUC,Sufficient_for_F1,Evaluable_for_Binary_Metrics,Recommended_Action
+Train (70%),production_train.csv,140000,1,139999,0.000714%,99.999286%,"139,999:1",YES,YES (≥1),YES (≥1),NO — only 1,PARTIAL,Use for evaluation (only split with positives)
+Validation (15%),production_validation.csv,30000,0,30000,0.000000%,100.000000%,∞:1 (no positives),NO,NO — undefined,NO — undefined,NO — only 0,NO,Cannot compute recall/F1/PR-AUC
+Test (15%),production_test.csv,30000,0,30000,0.000000%,100.000000%,∞:1 (no positives),NO,NO — undefined,NO — undefined,NO — only 0,NO,Cannot compute recall/F1/PR-AUC

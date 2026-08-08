@@ -1,0 +1,10 @@
+Model,SLA_Detection_Rate_Pct,False_Alarm_Rate_Pct,Automation_Rate_Pct,Breaches_Caught,Breaches_Missed,False_Alarms,True_Negatives,Missed_Breach_Cost_USD,False_Alarm_Cost_USD,Total_Operational_Cost_USD,Cost_Savings_vs_Baseline_USD,ROI_vs_Baseline_Pct
+Logistic_Regression,100.0,98.75,1.25,1,0,138253,1746,0,6912650,6912650,87350,1.25
+Decision_Tree,0.0,21.85,78.15,0,1,30591,109408,500,1529550,1530050,5469950,78.14
+Random_Forest,0.0,0.0,100.0,0,1,0,139999,500,0,500,6999500,99.99
+Extra_Trees,0.0,0.0,100.0,0,1,0,139999,500,0,500,6999500,99.99
+XGBoost,0.0,0.0,100.0,0,1,0,139999,500,0,500,6999500,99.99
+LightGBM,0.0,0.0,100.0,0,1,0,139999,500,0,500,6999500,99.99
+CatBoost,0.0,0.0,100.0,0,1,0,139999,500,0,500,6999500,99.99
+HistGradientBoosting,0.0,0.0,100.0,0,1,0,139999,500,0,500,6999500,99.99
+GaussianNB,0.0,0.0,100.0,0,1,0,139999,500,0,500,6999500,99.99

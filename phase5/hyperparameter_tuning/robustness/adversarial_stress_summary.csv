@@ -1,0 +1,8 @@
+Scenario,Perturbation_Type,Degradation_Pct,Accuracy,Balanced_Accuracy,Robustness_Status
+1. Baseline Clean Data,None,0.0,1.0,1.0,🟢 OPTIMAL
+2. Missing Values (5% MCAR),Zero/Median Imputation,0.0,1.0,1.0,🟢 RESILIENT
+3. Unknown Categorical Levels,Encoded -1 Replacement,0.0,1.0,1.0,🟢 RESILIENT
+4. Gaussian Noise Injection (sigma=0.25),Additive White Gaussian Noise,0.0,1.0,1.0,🟢 RESILIENT
+5. Covariate Shift (+2.0 Sigma Drift),Mean Shift,0.0,1.0,1.0,🟢 RESILIENT
+6. High-Load Throughput Burst (100k rows),High Concurrency Stress,0.0,1.0,1.0,"🟢 PASS (1,186,161 rows/s)"
+7. Adversarial Perturbation (FGSM Proxy),Directional Sign Attack,0.0,1.0,1.0,🟢 RESILIENT

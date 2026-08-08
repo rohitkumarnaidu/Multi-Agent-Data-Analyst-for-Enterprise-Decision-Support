@@ -1,0 +1,86 @@
+{
+  "dataset_version": "5.0.0-PROD",
+  "pipeline_version": "Phase-4.5-Enterprise-Dataset-Builder",
+  "creation_timestamp": "2026-08-07T19:38:27.170206+00:00",
+  "total_master_rows": 200000,
+  "production_dataset_shape": {
+    "total_rows": 200000,
+    "total_columns": 35,
+    "feature_count": 34,
+    "target_count": 1
+  },
+  "target_variable": {
+    "name": "SLA_Breached",
+    "type": "binary_integer",
+    "class_distribution": {
+      "0 (Compliant)": 0.999995,
+      "1 (Breached)": 5e-06
+    }
+  },
+  "splits": {
+    "train": {
+      "file": "production_train.csv",
+      "rows": 140000,
+      "ratio": 0.7,
+      "missing_values": 0,
+      "duplicates": 0
+    },
+    "validation": {
+      "file": "production_validation.csv",
+      "rows": 30000,
+      "ratio": 0.15,
+      "missing_values": 0,
+      "duplicates": 0
+    },
+    "test": {
+      "file": "production_test.csv",
+      "rows": 30000,
+      "ratio": 0.15,
+      "missing_values": 0,
+      "duplicates": 0
+    }
+  },
+  "governance_compliance": {
+    "source_feature_selection": "phase4/final_feature_set/selected_features.csv",
+    "feature_store_registry": "feature_store/feature_registry.yaml",
+    "zero_leakage_certified": true,
+    "immutable_source_phases": true
+  },
+  "selected_features": [
+    "Deviation_Percentage",
+    "Transaction_Amount_USD",
+    "Risk_Level",
+    "Requires_Human_Review",
+    "Escalation_Level",
+    "Revenue_Impact_USD",
+    "Anomaly_Score",
+    "Business_Unit",
+    "Data_Source_System",
+    "Query_Complexity_Score",
+    "Query_Type",
+    "KPI_Metric_Name",
+    "Region",
+    "Cost_Savings_Potential_USD",
+    "KPI_Target_Value",
+    "Assigned_Agent",
+    "Priority_Level",
+    "Transaction_Amount_USD_Is_Outlier",
+    "Department",
+    "Confidence_Score",
+    "Processing_Time_Sec",
+    "Processing_Time_Sec_Is_Outlier",
+    "Rolling_7_Txn_Avg_Amount_By_Dept",
+    "Recommended_Action",
+    "Prev_Txn_Amount_By_Dept",
+    "PoP_Amount_Change_Pct",
+    "Root_Cause_Category",
+    "Customer_Segment",
+    "Rank_Amount_Within_Dept",
+    "KPI_Current_Value",
+    "Output_Tokens",
+    "Data_Quality_Score",
+    "Input_Tokens",
+    "Total_Margin_USD"
+  ],
+  "target": "SLA_Breached"
+}

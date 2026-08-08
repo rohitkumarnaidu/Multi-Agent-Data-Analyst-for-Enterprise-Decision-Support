@@ -1,0 +1,28 @@
+{
+  "phase": "Phase 5B - Hyperparameter Tuning & Ensemble Optimization",
+  "timestamp": "2026-08-08 02:35:25",
+  "random_state": 42,
+  "production_dataset": {
+    "train_samples": 140000,
+    "validation_samples": 30000,
+    "test_samples": 30000,
+    "features_count": 34,
+    "target_column": "SLA_Breached"
+  },
+  "champion_model": {
+    "architecture": "Random Forest Classifier",
+    "parameters": {
+      "n_estimators": 87,
+      "max_depth": 24,
+      "min_samples_split": 8,
+      "min_samples_leaf": 3,
+      "class_weight": null
+    },
+    "validation_accuracy": 1.0,
+    "validation_latency_ms": 0.002164956666335153,
+    "validation_throughput_rps": 461903.0096767728,
+    "optimal_threshold": 0.1,
+    "artifact_path": "phase5/hyperparameter_tuning\\best_model.joblib",
+    "pipeline_path": "phase5/hyperparameter_tuning\\tuned_models\\production_champion_pipeline.joblib"
+  }
+}

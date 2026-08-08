@@ -1,0 +1,5 @@
+Dataset,Split,Rows,Columns,Features,Target,Missing_Values,Duplicates,SLA_Breach_Rate
+production_train.csv,Train,140000,35,34,SLA_Breached,0,0,0.00%
+production_validation.csv,Validation,30000,35,34,SLA_Breached,0,0,0.00%
+production_test.csv,Test,30000,35,34,SLA_Breached,0,0,0.00%
+master_cleaned_dataset.parquet,Master (Full),200000,49,48,SLA_Breached,126936,0,0.00%

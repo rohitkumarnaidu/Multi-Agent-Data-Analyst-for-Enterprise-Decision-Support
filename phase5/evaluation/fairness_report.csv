@@ -1,0 +1,30 @@
+Model,Group_Col,Group_Value,N,Actual_Breach_Rate,Predicted_Breach_Rate,Accuracy,Precision,Recall,F1,Bias_Flag
+Logistic_Regression,Department,Marketing,19686,0.0,0.9878,0.0122,0.0,0.0,0.0,FLAG
+Logistic_Regression,Department,Customer Support,16800,0.0,0.9889,0.0111,0.0,0.0,0.0,FLAG
+Logistic_Regression,Department,Hr,11213,0.0,0.9898,0.0102,0.0,0.0,0.0,FLAG
+Logistic_Regression,Department,Finance,27868,0.0,0.9869,0.0131,0.0,0.0,0.0,FLAG
+Logistic_Regression,Department,Sales,33605,0.0,0.9858,0.0142,0.0,0.0,0.0,FLAG
+Logistic_Regression,Department,Supply Chain,22480,0.0,0.9878,0.0122,0.0,0.0,0.0,FLAG
+Logistic_Regression,Department,It Operations,8348,0.0001,0.9892,0.0109,0.0001,1.0,0.0002,FLAG
+Logistic_Regression,Business_Unit,Latam,13966,0.0001,0.9871,0.013,0.0001,1.0,0.0001,FLAG
+Logistic_Regression,Business_Unit,Emea,39224,0.0,0.9876,0.0124,0.0,0.0,0.0,FLAG
+Logistic_Regression,Business_Unit,North America,56274,0.0,0.9876,0.0124,0.0,0.0,0.0,FLAG
+Logistic_Regression,Business_Unit,Apac,30536,0.0,0.9875,0.0125,0.0,0.0,0.0,FLAG
+Logistic_Regression,Region,Latin America,27653,0.0,0.9877,0.0124,0.0,1.0,0.0001,FLAG
+Logistic_Regression,Region,Europe,27322,0.0,0.9872,0.0128,0.0,0.0,0.0,FLAG
+Logistic_Regression,Region,Middle East & Africa,27312,0.0,0.9872,0.0128,0.0,0.0,0.0,FLAG
+Logistic_Regression,Region,Asia Pacific,27512,0.0,0.988,0.012,0.0,0.0,0.0,FLAG
+Logistic_Regression,Region,Unknown,2810,0.0,0.9886,0.0114,0.0,0.0,0.0,FLAG
+Logistic_Regression,Region,North America,27391,0.0,0.9875,0.0125,0.0,0.0,0.0,FLAG
+Logistic_Regression,Customer_Segment,Enterprise,23581,0.0,0.9869,0.0131,0.0,0.0,0.0,FLAG
+Logistic_Regression,Customer_Segment,Government,6608,0.0,0.9849,0.0151,0.0,0.0,0.0,FLAG
+Logistic_Regression,Customer_Segment,Unknown,72670,0.0,0.9879,0.0121,0.0,1.0,0.0,FLAG
+Logistic_Regression,Customer_Segment,Smb,23632,0.0,0.9876,0.0124,0.0,0.0,0.0,FLAG
+Logistic_Regression,Customer_Segment,Startup,13509,0.0,0.9874,0.0126,0.0,0.0,0.0,FLAG
+Logistic_Regression,Priority_Level,Medium,48839,0.0,0.9878,0.0122,0.0,0.0,0.0,FLAG
+Logistic_Regression,Priority_Level,High,30682,0.0,0.9872,0.0129,0.0,1.0,0.0001,FLAG
+Logistic_Regression,Priority_Level,Low,49388,0.0,0.9874,0.0126,0.0,0.0,0.0,FLAG
+Logistic_Regression,Priority_Level,Urgent,11091,0.0,0.9881,0.0119,0.0,0.0,0.0,FLAG
+Logistic_Regression,Risk_Level,Low,124916,0.0,0.9874,0.0126,0.0,1.0,0.0,FLAG
+Logistic_Regression,Risk_Level,Medium,15017,0.0,0.9889,0.0111,0.0,0.0,0.0,FLAG
+Logistic_Regression,Risk_Level,High,67,0.0,1.0,0.0,0.0,0.0,0.0,FLAG
