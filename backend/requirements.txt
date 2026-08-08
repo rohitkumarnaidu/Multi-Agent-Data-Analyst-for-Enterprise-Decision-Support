@@ -4,12 +4,14 @@ uvicorn==0.34.*
 
 # AI & Orchestration
 langgraph>=0.2,<1.0
+langgraph-checkpoint-sqlite>=2.0,<3.0
 langchain>=0.3,<1.0
 langchain-community>=0.3,<1.0
 langchain-groq>=0.2,<1.0
 
 # Retrieval & Embeddings
 chromadb>=0.5,<1.0
+langchain-chroma>=0.1,<1.0
 sentence-transformers>=3.0,<4.0
 rank_bm25>=0.2,<1.0
 

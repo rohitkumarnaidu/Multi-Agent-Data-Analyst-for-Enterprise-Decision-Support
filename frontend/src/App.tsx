@@ -6,16 +6,7 @@ import { WorkspaceProvider } from '@/shared/context/WorkspaceContext'
 import { ToastProvider } from '@/shared/ui/Toast'
 import { router } from './routes'
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      staleTime: 1000 * 60 * 5, // 5 minutes cache
-      retry: 1,
-    },
-  },
-})
-
+import { queryClient } from '@/store/queryClient'
 export const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>

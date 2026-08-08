@@ -47,3 +47,8 @@ outputs/
 eval/
 catboost_info/
 *.log
+
+# ── Local Databases ──
+*.db
+*.db-shm
+*.db-wal

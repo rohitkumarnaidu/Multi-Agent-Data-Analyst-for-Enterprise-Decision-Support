@@ -43,62 +43,22 @@ interface NavSection {
 
 const navSections: NavSection[] = [
   {
-    title: 'Overview & Briefing',
+    title: 'Overview & Intelligence',
     items: [
       { name: 'Executive Dashboard', to: '/workspace/dashboard', icon: LayoutDashboard },
-      { name: 'Boardroom Briefing', to: '/workspace/presentation', icon: Presentation },
+      { name: 'AI Workspace', to: '/workspace/ai', icon: Bot, badge: 'ACTIVE', badgeVariant: 'primary' },
     ],
   },
   {
-    title: 'Autonomous Intelligence',
+    title: 'Enterprise Data',
     items: [
-      {
-        name: 'AI Workspace',
-        to: '/workspace/ai',
-        icon: Bot,
-        badge: 'ACTIVE',
-        badgeVariant: 'primary',
-      },
-      { name: 'Analytics Studio', to: '/workspace/analytics', icon: BarChart3 },
-    ],
-  },
-  {
-    title: 'Data Engineering',
-    items: [
-      { name: 'Datasets Hub', to: '/workspace/datasets', icon: Database },
-      { name: 'Feature Store', to: '/workspace/feature-store', icon: Boxes },
       { name: 'Knowledge Base', to: '/workspace/knowledge', icon: BookOpen },
-      { name: 'EDA Studio', to: '/workspace/eda', icon: PieChart },
-    ],
-  },
-  {
-    title: 'Machine Learning',
-    items: [
-      { name: 'Feature Selection', to: '/workspace/feature-selection', icon: Target },
-      { name: 'Model Registry', to: '/workspace/models', icon: Cpu },
-      { name: 'Explainability (XAI)', to: '/workspace/explainability', icon: BrainCircuit },
-    ],
-  },
-  {
-    title: 'Decisions & Governance',
-    items: [
-      { name: 'Forecasting & Sim', to: '/workspace/forecasting', icon: TrendingUp },
-      {
-        name: 'Risk Command Center',
-        to: '/workspace/risk',
-        icon: AlertOctagon,
-        badge: '14',
-        badgeVariant: 'destructive',
-      },
-      { name: 'AI Guardrails', to: '/workspace/guardrails', icon: ShieldAlert },
-      { name: 'Audit Activity Trail', to: '/workspace/activity', icon: Activity },
     ],
   },
   {
     title: 'Administration',
     items: [
       { name: 'Enterprise Reports', to: '/workspace/reports', icon: FileText },
-      { name: 'Platform Settings', to: '/workspace/settings', icon: Settings },
     ],
   },
 ]

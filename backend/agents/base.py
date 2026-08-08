@@ -19,15 +19,22 @@ class BaseEnterpriseAgent:
     # Security Hooks
     def _check_prompt_injection(self, state: EnterpriseAgentState):
         """Security framework hook for detecting prompt injections."""
-        pass # To be implemented in Phase 6D
+        from security.injection import check_prompt_injection, check_sql_injection
+        question = state.get("question", "")
+        check_prompt_injection(question)
+        check_sql_injection(question)
 
     def _sanitize_input(self, state: EnterpriseAgentState):
         """Security framework hook for sanitizing input state."""
+        # Sanitization logic can be added here
         pass
 
     def _mask_pii(self, state: EnterpriseAgentState):
         """Security framework hook for masking PII."""
-        pass
+        from security.pii import mask_pii
+        question = state.get("question", "")
+        if question:
+            state["question"] = mask_pii(question)
 
     def _validate_output_safety(self, updates: Dict[str, Any]):
         """Security framework hook for validating output safety."""

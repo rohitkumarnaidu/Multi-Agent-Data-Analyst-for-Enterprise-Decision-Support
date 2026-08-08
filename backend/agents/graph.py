@@ -1,5 +1,7 @@
 from langgraph.graph import StateGraph, END
 from langgraph.types import RetryPolicy
+from langgraph.checkpoint.sqlite import SqliteSaver
+import sqlite3
 from agents.state import EnterpriseAgentState
 from agents.registry import get_agent_registry
 from agents.router import intent_router
@@ -12,11 +14,24 @@ from agents.nodes.validator_agent import ValidatorAgent
 from agents.nodes.simulation_agent import SimulationAgent
 from agents.nodes.report_agent import ReportAgent
 from agents.nodes.risk_agent import RiskAgent
+from agents.nodes.knowledge_agent import KnowledgeAgent
+from agents.nodes.memory_manager import MemoryManager
+
+from rag.chroma_store import ChromaVectorStore
+from rag.bm25_index import BM25Index
+from memory.session_store import SQLiteSessionStore
 
 # Obtain DI provider registry
 registry = get_agent_registry()
 
+# Global stores for RAG / Memory (can be moved to dependency container later)
+_vector_store = ChromaVectorStore()
+_bm25 = BM25Index()
+_session_store = SQLiteSessionStore()
+
 # Register Agent Factories
+registry.register_factory("knowledge_agent", lambda: KnowledgeAgent(_vector_store, _bm25))
+registry.register_factory("memory_manager", lambda: MemoryManager(_session_store))
 registry.register_factory("data_agent", DataAgent)
 registry.register_factory("analysis_agent", AnalysisAgent)
 registry.register_factory("narrative_agent", NarrativeAgent)
@@ -34,16 +49,18 @@ def build_enterprise_graph() -> StateGraph:
     # Add all registered nodes using the DI registry
     for name in registry._agent_factories.keys():
         agent_instance = registry.get(name)
-        
-        # Do not retry validation failures, only recoverable execution failures
         if name == "validator_agent":
             workflow.add_node(name, agent_instance)
         else:
             workflow.add_node(name, agent_instance, retry_policy=retry_policy)
 
-    # Define Conditional Entry Point (Router)
-    # The router determines the initial agent based on the intent
-    workflow.set_conditional_entry_point(
+    # Set linear initialization sequence
+    workflow.set_entry_point("knowledge_agent")
+    workflow.add_edge("knowledge_agent", "memory_manager")
+
+    # The memory manager branches out based on user intent
+    workflow.add_conditional_edges(
+        "memory_manager",
         intent_router,
         {
             "data_agent": "data_agent",
@@ -67,8 +84,12 @@ def build_enterprise_graph() -> StateGraph:
     # Validator is the final node
     workflow.add_edge("validator_agent", END)
 
-    # Compile the graph
-    app = workflow.compile()
+    # Set up memory persistence using SQLite
+    conn = sqlite3.connect(".langgraph_checkpoints.db", check_same_thread=False)
+    memory_saver = SqliteSaver(conn)
+
+    # Compile the graph with checkpointer
+    app = workflow.compile(checkpointer=memory_saver)
     return app
 
 # Singleton compiled graph for local testing, 

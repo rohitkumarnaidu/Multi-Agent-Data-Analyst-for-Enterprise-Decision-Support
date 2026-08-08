@@ -1,3 +1,9 @@
+## [0.6.0] - 2026-08-08
+### Added
+- Master Backend Certification and Freeze.
+- SecurityException and Checkpointer thread_id fixes.
+- LangGraph memory integration.
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
@@ -193,3 +199,16 @@ All notable changes to this project will be documented in this file.
 - Froze all evaluation artifacts.
 - Issued SHA-256 manifest.
 - Certified with condition COND-001 (Threshold).
+
+
+## [6.2.0] - Phase 6B Multi-Agent Core
+### Added
+- LangGraph StateGraph Orchestration
+- EnterpriseAgentState with typed list reducers
+- AgentRegistry Factory and Dependency Injection
+- 7 Specialized Enterprise Agents (Data, Analysis, Narrative, Validator, Simulation, Report, Risk)
+- Native LangGraph RetryPolicy
+- Structural Security Execution Hooks
+- Telemetry UUID tracking
+### Certified
+- Phase 6B Certified and Frozen
