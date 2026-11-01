@@ -10,7 +10,7 @@ langchain-community>=0.3,<1.0
 langchain-groq>=0.2,<1.0
 
 # Retrieval & Embeddings
-chromadb>=0.5,<1.0
+chromadb>=1.5.9,<2.0
 langchain-chroma>=0.1,<1.0
 sentence-transformers>=3.0,<4.0
 rank_bm25>=0.2,<1.0
