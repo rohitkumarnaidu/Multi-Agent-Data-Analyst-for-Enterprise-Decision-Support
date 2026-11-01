@@ -13,7 +13,7 @@ langchain-groq>=0.2,<1.0
 chromadb>=0.5,<1.0
 langchain-chroma>=0.1,<1.0
 sentence-transformers>=3.0,<4.0
-rank_bm25>=0.2,<1.0
+rank_bm25>=0.2.2,<1.0
 
 # Data & ML
 pandas>=2.2,<3.0
